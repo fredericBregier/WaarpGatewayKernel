@@ -1,10 +1,10 @@
 package org.waarp.gateway.kernel.rest;
 
-import static org.junit.Assert.*;
+import com.fasterxml.jackson.databind.node.JsonNodeFactory;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.junit.Test;
 
-import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.fasterxml.jackson.databind.node.JsonNodeFactory;
+import static org.junit.Assert.*;
 
 public class RestArgumentTest {
 
@@ -14,6 +14,6 @@ public class RestArgumentTest {
         ra.addFilter(null);
 
         assertEquals("filters should be an empty ObjectNode",
-            new ObjectNode(JsonNodeFactory.instance), ra.getFilter());
+                     new ObjectNode(JsonNodeFactory.instance), ra.getFilter());
     }
 }

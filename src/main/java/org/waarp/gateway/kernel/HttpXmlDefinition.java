@@ -1,27 +1,20 @@
 /**
  * This file is part of Waarp Project.
- * 
- * Copyright 2009, Frederic Bregier, and individual contributors by the @author tags. See the
- * COPYRIGHT.txt in the distribution for a full listing of individual contributors.
- * 
- * All Waarp Project is free software: you can redistribute it and/or modify it under the terms of
- * the GNU General Public License as published by the Free Software Foundation, either version 3 of
- * the License, or (at your option) any later version.
- * 
- * Waarp is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even
- * the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General
- * Public License for more details.
- * 
+ * <p>
+ * Copyright 2009, Frederic Bregier, and individual contributors by the @author tags. See the COPYRIGHT.txt in the
+ * distribution for a full listing of individual contributors.
+ * <p>
+ * All Waarp Project is free software: you can redistribute it and/or modify it under the terms of the GNU General
+ * Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any
+ * later version.
+ * <p>
+ * Waarp is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty
+ * of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+ * <p>
  * You should have received a copy of the GNU General Public License along with Waarp . If not, see
  * <http://www.gnu.org/licenses/>.
  */
 package org.waarp.gateway.kernel;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
 
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
@@ -42,9 +35,15 @@ import org.waarp.gateway.kernel.AbstractHttpField.FieldRole;
 import org.waarp.gateway.kernel.HttpPage.PageRole;
 import org.waarp.gateway.kernel.exception.HttpIncorrectRequestException;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
+
 /**
  * @author frederic bregier
- * 
+ *
  */
 public class HttpXmlDefinition {
     /**
@@ -173,7 +172,7 @@ public class HttpXmlDefinition {
 
     /**
      * Structure of the Configuration: Field
-     * 
+     *
      */
     private static final XmlDecl[] configHttpField = {
             // 1 Field
@@ -191,7 +190,7 @@ public class HttpXmlDefinition {
 
     /**
      * Structure of the Configuration: Page
-     * 
+     *
      */
     private static final XmlDecl[] configHttpPage = {
             // 1 Page
@@ -208,20 +207,20 @@ public class HttpXmlDefinition {
             new XmlDecl(XmlType.STRING, XML_HTTP_CLASSNAME),
             // all fields
             new XmlDecl(XML_HTTP_FIELD, XmlType.XVAL,
-                    XML_HTTP_FIELDS + "/" + XML_HTTP_FIELD, configHttpField, true)
+                        XML_HTTP_FIELDS + "/" + XML_HTTP_FIELD, configHttpField, true)
     };
 
     /**
      * Structure of the Configuration: Pages
-     * 
+     *
      * from root => Pages.Page
-     * 
+     *
      */
     private static final XmlDecl[] configHttpPages = {
             // all pages
             new XmlDecl(XML_HTTP_PAGE, XmlType.XVAL,
-                    XML_HTTP_ROOT + XML_HTTP_PAGES + "/" + XML_HTTP_PAGE,
-                    configHttpPage, true)
+                        XML_HTTP_ROOT + XML_HTTP_PAGES + "/" + XML_HTTP_PAGE,
+                        configHttpPage, true)
     };
 
     protected static AbstractHttpField loadHttpPage(XmlValue[] xmlValue)
@@ -245,7 +244,7 @@ public class HttpXmlDefinition {
         } catch (IllegalArgumentException e) {
             logger.error("Unable to link value of field: " + XML_HTTP_FIELDTYPE);
             throw new InvalidArgumentException("Unable to link value of field: "
-                    + XML_HTTP_FIELDTYPE);
+                                               + XML_HTTP_FIELDTYPE);
         }
         value = hash.get(XML_HTTP_FIELDINFO);
         String fieldinfo = fieldname;
@@ -289,13 +288,13 @@ public class HttpXmlDefinition {
         }
         int fieldrank = value.getInteger();
         return new DefaultHttpField(fieldname, fieldRole, fieldinfo, fieldvalue,
-                fieldvisibility, fieldmandatory, fieldcookieset, fieldtovalidate, fieldposition,
-                fieldrank);
+                                    fieldvisibility, fieldmandatory, fieldcookieset, fieldtovalidate, fieldposition,
+                                    fieldrank);
     }
 
     protected static HttpPage loadHttpConfiguration(XmlValue[] xmlValue)
             throws InvalidArgumentException, ClassNotFoundException, InstantiationException,
-            IllegalAccessException {
+                   IllegalAccessException {
         XmlHash hash = new XmlHash(xmlValue);
         XmlValue value = hash.get(XML_HTTP_PAGENAME);
         if (value == null || (value.isEmpty()) || value.getString().length() == 0) {
@@ -351,7 +350,7 @@ public class HttpXmlDefinition {
         } catch (IllegalArgumentException e) {
             logger.error("Unable to link value of field: " + XML_HTTP_PAGEROLE);
             throw new InvalidArgumentException("Unable to link value of field: "
-                    + XML_HTTP_PAGEROLE);
+                                               + XML_HTTP_PAGEROLE);
         }
         value = hash.get(XML_HTTP_ERRORPAGE);
         if (value == null || (value.isEmpty()) || value.getString().length() == 0) {
@@ -385,12 +384,12 @@ public class HttpXmlDefinition {
         listFields.clear();
         listFields = null;
         return new HttpPage(pagename, fileform, header, footer, beginform, endform, nextinform,
-                uri, pageRole, errorpage, classname, linkedHashMap);
+                            uri, pageRole, errorpage, classname, linkedHashMap);
     }
 
     /**
      * Initiate the configuration from the xml file for Http server
-     * 
+     *
      * @param filename
      * @return the List<HttpPage> if OK
      * @throws InvalidArgumentException
@@ -400,7 +399,7 @@ public class HttpXmlDefinition {
      */
     public static HttpPageHandler setConfigurationHttpServerFromXml(String filename)
             throws InvalidArgumentException, ClassNotFoundException, InstantiationException,
-            IllegalAccessException {
+                   IllegalAccessException {
         Document document = null;
         // Open config file
         try {
@@ -434,7 +433,7 @@ public class HttpXmlDefinition {
 
     /**
      * Construct a new Element with value
-     * 
+     *
      * @param name
      * @param value
      * @return the new Element

@@ -1,24 +1,20 @@
 /**
  * This file is part of Waarp Project.
- * 
- * Copyright 2009, Frederic Bregier, and individual contributors by the @author tags. See the
- * COPYRIGHT.txt in the distribution for a full listing of individual contributors.
- * 
- * All Waarp Project is free software: you can redistribute it and/or modify it under the terms of
- * the GNU General Public License as published by the Free Software Foundation, either version 3 of
- * the License, or (at your option) any later version.
- * 
- * Waarp is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even
- * the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General
- * Public License for more details.
- * 
+ * <p>
+ * Copyright 2009, Frederic Bregier, and individual contributors by the @author tags. See the COPYRIGHT.txt in the
+ * distribution for a full listing of individual contributors.
+ * <p>
+ * All Waarp Project is free software: you can redistribute it and/or modify it under the terms of the GNU General
+ * Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any
+ * later version.
+ * <p>
+ * Waarp is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty
+ * of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+ * <p>
  * You should have received a copy of the GNU General Public License along with Waarp . If not, see
  * <http://www.gnu.org/licenses/>.
  */
 package org.waarp.gateway.kernel;
-
-import java.net.SocketAddress;
-import java.util.LinkedHashMap;
 
 import io.netty.handler.codec.http.HttpResponseStatus;
 import io.netty.handler.codec.http.multipart.DefaultHttpDataFactory;
@@ -29,9 +25,12 @@ import org.waarp.gateway.kernel.AbstractHttpField.FieldPosition;
 import org.waarp.gateway.kernel.AbstractHttpField.FieldRole;
 import org.waarp.gateway.kernel.HttpPage.PageRole;
 
+import java.net.SocketAddress;
+import java.util.LinkedHashMap;
+
 /**
  * @author Frederic Bregier
- * 
+ *
  */
 public abstract class HttpBusinessFactory {
     public static final HttpDataFactory factory = new DefaultHttpDataFactory(
@@ -47,34 +46,17 @@ public abstract class HttpBusinessFactory {
     public static void initialize(String tempPath) {
         TempPath = tempPath;
         DiskFileUpload.deleteOnExitTemporaryFile = true; // should delete file
-                                                         // on exit (in normal
-                                                         // exit)
+        // on exit (in normal
+        // exit)
         DiskFileUpload.baseDirectory = TempPath; // system temp
-                                                 // directory
+        // directory
         DiskAttribute.deleteOnExitTemporaryFile = true; // should delete file on
-                                                        // exit (in normal exit)
+        // exit (in normal exit)
         DiskAttribute.baseDirectory = TempPath; // system temp directory
     }
 
     /**
-     * It returns the AbstractHttpBusinessRequest to use during a new request.
-     * 
-     * Note that fields given in parameter should be updated according to their values if needed.
-     * 
-     * @param remoteAddress
-     *            the remote SocketAddress in use
-     * @param fields
-     *            the fields linked hashmap (to preserver order) to set for the new request
-     * @param page
-     *            source HttpPage
-     * @return the AbstractHttpBusinessRequest to use during a new request
-     */
-    public abstract AbstractHttpBusinessRequest getNewHttpBusinessRequest(
-            SocketAddress remoteAddress,
-            LinkedHashMap<String, AbstractHttpField> fields, HttpPage page);
-
-    /**
-     * 
+     *
      * @param pages
      * @param title
      * @param clasz
@@ -112,72 +94,78 @@ public abstract class HttpBusinessFactory {
             fieldtovalidate = false;
             fieldrank = 1;
             linkedHashMap.put(fieldname, new DefaultHttpField(fieldname, fieldRole, fieldinfo,
-                    fieldvalue,
-                    fieldvisibility, fieldmandatory, fieldcookieset, fieldtovalidate,
-                    FieldPosition.BODY, fieldrank));
+                                                              fieldvalue,
+                                                              fieldvisibility, fieldmandatory, fieldcookieset,
+                                                              fieldtovalidate,
+                                                              FieldPosition.BODY, fieldrank));
             pages.getHashmap().put(uri, new HttpPage(pagename, null, header, footer, beginform, endform,
-                    nextinform,
-                    uri, pageRole, errorpage, classname, linkedHashMap));
+                                                     nextinform,
+                                                     uri, pageRole, errorpage, classname, linkedHashMap));
 
             pagename = "401";
             uri = "401";
             linkedHashMap = new LinkedHashMap<String, AbstractHttpField>();
             fieldvalue = HttpResponseStatus.UNAUTHORIZED.reasonPhrase();
             linkedHashMap.put(fieldname, new DefaultHttpField(fieldname, fieldRole, fieldinfo,
-                    fieldvalue,
-                    fieldvisibility, fieldmandatory, fieldcookieset, fieldtovalidate,
-                    FieldPosition.BODY, fieldrank));
+                                                              fieldvalue,
+                                                              fieldvisibility, fieldmandatory, fieldcookieset,
+                                                              fieldtovalidate,
+                                                              FieldPosition.BODY, fieldrank));
             pages.getHashmap().put(uri, new HttpPage(pagename, null, header, footer, beginform, endform,
-                    nextinform,
-                    uri, pageRole, errorpage, classname, linkedHashMap));
+                                                     nextinform,
+                                                     uri, pageRole, errorpage, classname, linkedHashMap));
 
             pagename = "403";
             uri = "403";
             linkedHashMap = new LinkedHashMap<String, AbstractHttpField>();
             fieldvalue = HttpResponseStatus.FORBIDDEN.reasonPhrase();
             linkedHashMap.put(fieldname, new DefaultHttpField(fieldname, fieldRole, fieldinfo,
-                    fieldvalue,
-                    fieldvisibility, fieldmandatory, fieldcookieset, fieldtovalidate,
-                    FieldPosition.BODY, fieldrank));
+                                                              fieldvalue,
+                                                              fieldvisibility, fieldmandatory, fieldcookieset,
+                                                              fieldtovalidate,
+                                                              FieldPosition.BODY, fieldrank));
             pages.getHashmap().put(uri, new HttpPage(pagename, null, header, footer, beginform, endform,
-                    nextinform,
-                    uri, pageRole, errorpage, classname, linkedHashMap));
+                                                     nextinform,
+                                                     uri, pageRole, errorpage, classname, linkedHashMap));
 
             pagename = "404";
             uri = "404";
             linkedHashMap = new LinkedHashMap<String, AbstractHttpField>();
             fieldvalue = HttpResponseStatus.NOT_FOUND.reasonPhrase();
             linkedHashMap.put(fieldname, new DefaultHttpField(fieldname, fieldRole, fieldinfo,
-                    fieldvalue,
-                    fieldvisibility, fieldmandatory, fieldcookieset, fieldtovalidate,
-                    FieldPosition.BODY, fieldrank));
+                                                              fieldvalue,
+                                                              fieldvisibility, fieldmandatory, fieldcookieset,
+                                                              fieldtovalidate,
+                                                              FieldPosition.BODY, fieldrank));
             pages.getHashmap().put(uri, new HttpPage(pagename, null, header, footer, beginform, endform,
-                    nextinform,
-                    uri, pageRole, errorpage, classname, linkedHashMap));
+                                                     nextinform,
+                                                     uri, pageRole, errorpage, classname, linkedHashMap));
 
             pagename = "406";
             uri = "406";
             linkedHashMap = new LinkedHashMap<String, AbstractHttpField>();
             fieldvalue = HttpResponseStatus.NOT_ACCEPTABLE.reasonPhrase();
             linkedHashMap.put(fieldname, new DefaultHttpField(fieldname, fieldRole, fieldinfo,
-                    fieldvalue,
-                    fieldvisibility, fieldmandatory, fieldcookieset, fieldtovalidate,
-                    FieldPosition.BODY, fieldrank));
+                                                              fieldvalue,
+                                                              fieldvisibility, fieldmandatory, fieldcookieset,
+                                                              fieldtovalidate,
+                                                              FieldPosition.BODY, fieldrank));
             pages.getHashmap().put(uri, new HttpPage(pagename, null, header, footer, beginform, endform,
-                    nextinform,
-                    uri, pageRole, errorpage, classname, linkedHashMap));
+                                                     nextinform,
+                                                     uri, pageRole, errorpage, classname, linkedHashMap));
 
             pagename = "500";
             uri = "500";
             linkedHashMap = new LinkedHashMap<String, AbstractHttpField>();
             fieldvalue = HttpResponseStatus.INTERNAL_SERVER_ERROR.reasonPhrase();
             linkedHashMap.put(fieldname, new DefaultHttpField(fieldname, fieldRole, fieldinfo,
-                    fieldvalue,
-                    fieldvisibility, fieldmandatory, fieldcookieset, fieldtovalidate,
-                    FieldPosition.BODY, fieldrank));
+                                                              fieldvalue,
+                                                              fieldvisibility, fieldmandatory, fieldcookieset,
+                                                              fieldtovalidate,
+                                                              FieldPosition.BODY, fieldrank));
             pages.getHashmap().put(uri, new HttpPage(pagename, null, header, footer, beginform, endform,
-                    nextinform,
-                    uri, pageRole, errorpage, classname, linkedHashMap));
+                                                     nextinform,
+                                                     uri, pageRole, errorpage, classname, linkedHashMap));
             return true;
         } catch (ClassNotFoundException e) {
         } catch (InstantiationException e) {
@@ -185,4 +173,21 @@ public abstract class HttpBusinessFactory {
         }
         return false;
     }
+
+    /**
+     * It returns the AbstractHttpBusinessRequest to use during a new request.
+     *
+     * Note that fields given in parameter should be updated according to their values if needed.
+     *
+     * @param remoteAddress
+     *            the remote SocketAddress in use
+     * @param fields
+     *            the fields linked hashmap (to preserver order) to set for the new request
+     * @param page
+     *            source HttpPage
+     * @return the AbstractHttpBusinessRequest to use during a new request
+     */
+    public abstract AbstractHttpBusinessRequest getNewHttpBusinessRequest(
+            SocketAddress remoteAddress,
+            LinkedHashMap<String, AbstractHttpField> fields, HttpPage page);
 }

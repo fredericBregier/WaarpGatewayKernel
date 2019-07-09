@@ -1,28 +1,22 @@
 /**
-   This file is part of Waarp Project.
-
-   Copyright 2009, Frederic Bregier, and individual contributors by the @author
-   tags. See the COPYRIGHT.txt in the distribution for a full listing of
-   individual contributors.
-
-   All Waarp Project is free software: you can redistribute it and/or 
-   modify it under the terms of the GNU General Public License as published 
-   by the Free Software Foundation, either version 3 of the License, or
-   (at your option) any later version.
-
-   Waarp is distributed in the hope that it will be useful,
-   but WITHOUT ANY WARRANTY; without even the implied warranty of
-   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-   GNU General Public License for more details.
-
-   You should have received a copy of the GNU General Public License
-   along with Waarp .  If not, see <http://www.gnu.org/licenses/>.
+ * This file is part of Waarp Project.
+ * <p>
+ * Copyright 2009, Frederic Bregier, and individual contributors by the @author tags. See the COPYRIGHT.txt in the
+ * distribution for a full listing of individual contributors.
+ * <p>
+ * All Waarp Project is free software: you can redistribute it and/or modify it under the terms of the GNU General
+ * Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any
+ * later version.
+ * <p>
+ * Waarp is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty
+ * of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
+ * <p>
+ * You should have received a copy of the GNU General Public License along with Waarp .  If not, see
+ * <http://www.gnu.org/licenses/>.
  */
 package org.waarp.gateway.kernel.rest;
 
-import java.util.HashSet;
-import java.util.Set;
-
+import com.fasterxml.jackson.databind.node.ArrayNode;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelFuture;
@@ -31,7 +25,6 @@ import io.netty.handler.codec.http.HttpHeaderNames;
 import io.netty.handler.codec.http.HttpResponse;
 import io.netty.handler.codec.http.HttpResponseStatus;
 import io.netty.handler.codec.http.multipart.FileUpload;
-
 import org.waarp.common.logging.WaarpLogger;
 import org.waarp.common.logging.WaarpLoggerFactory;
 import org.waarp.common.utility.WaarpStringUtils;
@@ -43,11 +36,12 @@ import org.waarp.gateway.kernel.exception.HttpNotFoundRequestException;
 import org.waarp.gateway.kernel.rest.DataModelRestMethodHandler.COMMAND_TYPE;
 import org.waarp.gateway.kernel.rest.HttpRestHandler.METHOD;
 
-import com.fasterxml.jackson.databind.node.ArrayNode;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Rest Method handler (used by Http Rest Handler)
- * 
+ *
  * @author "Frederic Bregier"
  *
  */
@@ -77,7 +71,7 @@ public abstract class RestMethodHandler {
      *            the associated methods
      */
     public RestMethodHandler(String name, String path, boolean isBodyJsonDecode, RestConfiguration config,
-            METHOD... method) {
+                             METHOD... method) {
         this.name = name;
         this.path = path;
         this.methods = new HashSet<HttpRestHandler.METHOD>();
@@ -95,7 +89,7 @@ public abstract class RestMethodHandler {
 
     /**
      * Will assign the intersection of both set of Methods
-     * 
+     *
      * @param selectedMethods
      *            the selected Methods among available
      * @param validMethod
@@ -124,7 +118,7 @@ public abstract class RestMethodHandler {
     }
 
     /**
-     * 
+     *
      * @param method
      * @return True if the Method is valid for this Handler
      */
@@ -134,18 +128,18 @@ public abstract class RestMethodHandler {
 
     /**
      * Check the session (arguments, result) vs handler correctness, called before any BODY elements but after URI and HEADER.
-     * 
+     *
      * @param handler
      * @param arguments
      * @param result
      * @throws HttpForbiddenRequestException
      */
     public abstract void checkHandlerSessionCorrectness(HttpRestHandler handler, RestArgument arguments,
-            RestArgument result) throws HttpForbiddenRequestException;
+                                                        RestArgument result) throws HttpForbiddenRequestException;
 
     /**
      * Get a new Http Uploaded File from BODY
-     * 
+     *
      * @param handler
      * @param data
      * @param arguments
@@ -153,11 +147,11 @@ public abstract class RestMethodHandler {
      * @throws HttpIncorrectRequestException
      */
     public abstract void getFileUpload(HttpRestHandler handler, FileUpload data, RestArgument arguments,
-            RestArgument result) throws HttpIncorrectRequestException;
+                                       RestArgument result) throws HttpIncorrectRequestException;
 
     /**
      * Get data from BODY (supposedly a Json)
-     * 
+     *
      * @param handler
      * @param body
      * @param arguments
@@ -170,7 +164,7 @@ public abstract class RestMethodHandler {
 
     /**
      * Called when all Data were passed to the handler
-     * 
+     *
      * @param handler
      * @param arguments
      * @param result
@@ -179,12 +173,13 @@ public abstract class RestMethodHandler {
      * @throws HttpNotFoundRequestException
      */
     public abstract void endParsingRequest(HttpRestHandler handler, RestArgument arguments, RestArgument result,
-            Object body) throws HttpIncorrectRequestException, HttpInvalidAuthenticationException,
-            HttpNotFoundRequestException;
+                                           Object body)
+            throws HttpIncorrectRequestException, HttpInvalidAuthenticationException,
+                   HttpNotFoundRequestException;
 
     /**
      * Called when an exception occurs
-     * 
+     *
      * @param handler
      * @param arguments
      * @param result
@@ -193,7 +188,7 @@ public abstract class RestMethodHandler {
      * @return the status to used in sendReponse
      */
     public HttpResponseStatus handleException(HttpRestHandler handler, RestArgument arguments, RestArgument result,
-            Object body, Exception exception) {
+                                              Object body, Exception exception) {
         if (exception instanceof HttpInvalidAuthenticationException) {
             result.setResult(HttpResponseStatus.UNAUTHORIZED);
             return HttpResponseStatus.UNAUTHORIZED;
@@ -217,7 +212,7 @@ public abstract class RestMethodHandler {
 
     /**
      * Send a response (correct or not)
-     * 
+     *
      * @param handler
      * @param ctx
      * @param arguments
@@ -227,10 +222,11 @@ public abstract class RestMethodHandler {
      * @return The ChannelFuture if this response will need the channel to be closed, else null
      */
     public abstract ChannelFuture sendResponse(HttpRestHandler handler, ChannelHandlerContext ctx,
-            RestArgument arguments, RestArgument result, Object body, HttpResponseStatus status);
+                                               RestArgument arguments, RestArgument result, Object body,
+                                               HttpResponseStatus status);
 
     protected ChannelFuture sendOptionsResponse(HttpRestHandler handler, ChannelHandlerContext ctx,
-            RestArgument result, HttpResponseStatus status) {
+                                                RestArgument result, HttpResponseStatus status) {
         String list = result.getAllowOption();
         String answer = result.toString();
         ByteBuf buffer = Unpooled.wrappedBuffer(answer.getBytes(WaarpStringUtils.UTF8));
@@ -253,7 +249,7 @@ public abstract class RestMethodHandler {
 
     /**
      * Options command that all handler should implement
-     * 
+     *
      * @param handler
      * @param arguments
      * @param result
@@ -279,7 +275,7 @@ public abstract class RestMethodHandler {
     }
 
     /**
-     * 
+     *
      * @return the detail of the method handler
      */
     protected abstract ArrayNode getDetailedAllow();

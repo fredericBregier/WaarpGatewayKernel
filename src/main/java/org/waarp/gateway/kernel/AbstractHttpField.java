@@ -1,17 +1,16 @@
 /**
  * This file is part of Waarp Project.
- * 
- * Copyright 2009, Frederic Bregier, and individual contributors by the @author tags. See the
- * COPYRIGHT.txt in the distribution for a full listing of individual contributors.
- * 
- * All Waarp Project is free software: you can redistribute it and/or modify it under the terms of
- * the GNU General Public License as published by the Free Software Foundation, either version 3 of
- * the License, or (at your option) any later version.
- * 
- * Waarp is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even
- * the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General
- * Public License for more details.
- * 
+ * <p>
+ * Copyright 2009, Frederic Bregier, and individual contributors by the @author tags. See the COPYRIGHT.txt in the
+ * distribution for a full listing of individual contributors.
+ * <p>
+ * All Waarp Project is free software: you can redistribute it and/or modify it under the terms of the GNU General
+ * Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any
+ * later version.
+ * <p>
+ * Waarp is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty
+ * of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+ * <p>
  * You should have received a copy of the GNU General Public License along with Waarp . If not, see
  * <http://www.gnu.org/licenses/>.
  */
@@ -22,36 +21,16 @@ import org.waarp.gateway.kernel.exception.HttpIncorrectRequestException;
 
 /**
  * @author Frederic Bregier
- * 
+ *
  */
 public abstract class AbstractHttpField implements Cloneable {
-
-    public static enum FieldRole {
-        BUSINESS_INPUT_TEXT,
-        BUSINESS_INPUT_CHECKBOX,
-        BUSINESS_INPUT_RADIO,
-        BUSINESS_INPUT_HIDDEN,
-        BUSINESS_INPUT_FILE,
-        BUSINESS_INPUT_IMAGE,
-        BUSINESS_INPUT_PWD,
-        BUSINESS_TEXTAREA,
-        BUSINESS_SELECT,
-        SUBMIT,
-        BUSINESS_COOKIE;
-    }
-
-    public static enum FieldPosition {
-        URL,
-        HEADER,
-        COOKIE,
-        BODY,
-        ANY
-    }
 
     /**
      * Special field name for Error page
      */
     public static final String ERRORINFO = "ERRORINFO";
+    public String fieldvalue;
+    FileUpload fileUpload;
     /*
      * fieldname, fieldtype, fieldinfo, fieldvalue, fieldvisibility, fieldmandatory, fieldcookieset,
      * fieldtovalidate, fieldposition, fieldrank
@@ -59,7 +38,6 @@ public abstract class AbstractHttpField implements Cloneable {
     private String fieldname;
     private FieldRole fieldtype;
     private String fieldinfo;
-    public String fieldvalue;
     private boolean fieldvisibility;
     private boolean fieldmandatory;
     private boolean fieldcookieset;
@@ -67,8 +45,6 @@ public abstract class AbstractHttpField implements Cloneable {
     private FieldPosition fieldposition;
     private int fieldrank;
     private boolean present = false;
-    FileUpload fileUpload;
-
     /**
      * @param fieldname
      * @param fieldtype
@@ -82,9 +58,9 @@ public abstract class AbstractHttpField implements Cloneable {
      * @param fieldrank
      */
     public AbstractHttpField(String fieldname, FieldRole fieldtype, String fieldinfo,
-            String fieldvalue, boolean fieldvisibility, boolean fieldmandatory,
-            boolean fieldcookieset,
-            boolean fieldtovalidate, FieldPosition fieldposition, int fieldrank) {
+                             String fieldvalue, boolean fieldvisibility, boolean fieldmandatory,
+                             boolean fieldcookieset,
+                             boolean fieldtovalidate, FieldPosition fieldposition, int fieldrank) {
         this.setFieldname(fieldname);
         this.setFieldtype(fieldtype);
         this.setFieldinfo(fieldinfo);
@@ -98,7 +74,7 @@ public abstract class AbstractHttpField implements Cloneable {
     }
 
     /**
-     * 
+     *
      * @param page
      *            source HttpPage
      * @return the html form of a field according to its type and value
@@ -106,7 +82,7 @@ public abstract class AbstractHttpField implements Cloneable {
     public abstract String getHtmlFormField(HttpPage page) throws HttpIncorrectRequestException;
 
     /**
-     * 
+     *
      * @param page
      *            source HttpPage
      * @return the html tab of a field according to its type and value
@@ -118,21 +94,12 @@ public abstract class AbstractHttpField implements Cloneable {
 
     /**
      * Set the value
-     * 
+     *
      * @param value
      * @throws HttpIncorrectRequestException
      *             if the value was already set
      */
     public abstract void setStringValue(String value) throws HttpIncorrectRequestException;
-
-    /**
-     * Set the fileUpload
-     * 
-     * @param fileUpload
-     * @throws HttpIncorrectRequestException
-     *             if the value was already set
-     */
-    public abstract void setFileUpload(FileUpload fileUpload) throws HttpIncorrectRequestException;
 
     /**
      * Clean method
@@ -293,5 +260,36 @@ public abstract class AbstractHttpField implements Cloneable {
      */
     public FileUpload getFileUpload() {
         return fileUpload;
+    }
+
+    /**
+     * Set the fileUpload
+     *
+     * @param fileUpload
+     * @throws HttpIncorrectRequestException
+     *             if the value was already set
+     */
+    public abstract void setFileUpload(FileUpload fileUpload) throws HttpIncorrectRequestException;
+
+    public static enum FieldRole {
+        BUSINESS_INPUT_TEXT,
+        BUSINESS_INPUT_CHECKBOX,
+        BUSINESS_INPUT_RADIO,
+        BUSINESS_INPUT_HIDDEN,
+        BUSINESS_INPUT_FILE,
+        BUSINESS_INPUT_IMAGE,
+        BUSINESS_INPUT_PWD,
+        BUSINESS_TEXTAREA,
+        BUSINESS_SELECT,
+        SUBMIT,
+        BUSINESS_COOKIE;
+    }
+
+    public static enum FieldPosition {
+        URL,
+        HEADER,
+        COOKIE,
+        BODY,
+        ANY
     }
 }

@@ -1,12 +1,12 @@
 /*
  * Copyright 2009 Red Hat, Inc.
- * 
+ *
  * Red Hat licenses this file to you under the Apache License, version 2.0 (the
  * "License"); you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at:
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
  * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
@@ -15,9 +15,8 @@
  */
 package org.waarp.gateway.kernel.rest.client;
 
-import java.net.ConnectException;
-import java.nio.channels.ClosedChannelException;
-
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.Channel;
@@ -30,7 +29,6 @@ import io.netty.handler.codec.http.HttpResponse;
 import io.netty.handler.codec.http.HttpResponseStatus;
 import io.netty.handler.codec.http.LastHttpContent;
 import io.netty.util.AttributeKey;
-
 import org.waarp.common.crypto.ssl.WaarpSslUtility;
 import org.waarp.common.json.JsonHandler;
 import org.waarp.common.logging.WaarpLogger;
@@ -39,24 +37,21 @@ import org.waarp.common.utility.WaarpStringUtils;
 import org.waarp.gateway.kernel.exception.HttpIncorrectRequestException;
 import org.waarp.gateway.kernel.rest.RestArgument;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.node.ObjectNode;
+import java.net.ConnectException;
+import java.nio.channels.ClosedChannelException;
 
 /**
- * 
  * @author Frederic Bregier
  */
 public class HttpRestClientSimpleResponseHandler extends SimpleChannelInboundHandler<HttpObject> {
+    public static final AttributeKey<RestFuture> RESTARGUMENT = AttributeKey.valueOf("RestClient.Argument");
     /**
      * Internal Logger
      */
     private static final WaarpLogger logger = WaarpLoggerFactory
             .getLogger(HttpRestClientSimpleResponseHandler.class);
-
-    public static final AttributeKey<RestFuture> RESTARGUMENT = AttributeKey.valueOf("RestClient.Argument");
-
-    private ByteBuf cumulativeBody = null;
     protected JsonNode jsonObject = null;
+    private ByteBuf cumulativeBody = null;
 
     protected void actionFromResponse(Channel channel) {
         RestArgument ra = new RestArgument((ObjectNode) jsonObject);
@@ -84,7 +79,7 @@ public class HttpRestClientSimpleResponseHandler extends SimpleChannelInboundHan
             HttpResponse response = (HttpResponse) msg;
             HttpResponseStatus status = response.status();
             logger.debug(HttpHeaderNames.REFERER + ": " + response.headers().get(HttpHeaderNames.REFERER) +
-                    " STATUS: " + status);
+                         " STATUS: " + status);
         }
         if (msg instanceof HttpContent) {
             HttpContent chunk = (HttpContent) msg;

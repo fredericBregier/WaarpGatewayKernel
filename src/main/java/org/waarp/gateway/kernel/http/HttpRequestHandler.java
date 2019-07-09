@@ -1,30 +1,20 @@
 /**
  * This file is part of Waarp Project.
- * 
- * Copyright 2009, Frederic Bregier, and individual contributors by the @author tags. See the
- * COPYRIGHT.txt in the distribution for a full listing of individual contributors.
- * 
- * All Waarp Project is free software: you can redistribute it and/or modify it under the terms of
- * the GNU General Public License as published by the Free Software Foundation, either version 3 of
- * the License, or (at your option) any later version.
- * 
- * Waarp is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even
- * the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General
- * Public License for more details.
- * 
+ * <p>
+ * Copyright 2009, Frederic Bregier, and individual contributors by the @author tags. See the COPYRIGHT.txt in the
+ * distribution for a full listing of individual contributors.
+ * <p>
+ * All Waarp Project is free software: you can redistribute it and/or modify it under the terms of the GNU General
+ * Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any
+ * later version.
+ * <p>
+ * Waarp is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty
+ * of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+ * <p>
  * You should have received a copy of the GNU General Public License along with Waarp . If not, see
  * <http://www.gnu.org/licenses/>.
  */
 package org.waarp.gateway.kernel.http;
-
-import java.io.IOException;
-import java.nio.channels.ClosedChannelException;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
-import java.util.Set;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
@@ -51,13 +41,12 @@ import io.netty.handler.codec.http.cookie.ServerCookieEncoder;
 import io.netty.handler.codec.http.multipart.Attribute;
 import io.netty.handler.codec.http.multipart.FileUpload;
 import io.netty.handler.codec.http.multipart.HttpPostRequestDecoder;
-import io.netty.handler.codec.http.multipart.InterfaceHttpData;
 import io.netty.handler.codec.http.multipart.HttpPostRequestDecoder.EndOfDataDecoderException;
 import io.netty.handler.codec.http.multipart.HttpPostRequestDecoder.ErrorDataDecoderException;
 import io.netty.handler.codec.http.multipart.HttpPostRequestDecoder.NotEnoughDataDecoderException;
+import io.netty.handler.codec.http.multipart.InterfaceHttpData;
 import io.netty.handler.codec.http.multipart.InterfaceHttpData.HttpDataType;
 import io.netty.util.CharsetUtil;
-
 import org.waarp.common.crypto.ssl.WaarpSslUtility;
 import org.waarp.common.database.data.AbstractDbData.UpdatedInfo;
 import org.waarp.common.logging.WaarpLogger;
@@ -65,21 +54,30 @@ import org.waarp.common.logging.WaarpLoggerFactory;
 import org.waarp.common.utility.WaarpStringUtils;
 import org.waarp.gateway.kernel.AbstractHttpBusinessRequest;
 import org.waarp.gateway.kernel.AbstractHttpField;
-import org.waarp.gateway.kernel.HttpBusinessFactory;
-import org.waarp.gateway.kernel.HttpPage;
-import org.waarp.gateway.kernel.HttpPageHandler;
 import org.waarp.gateway.kernel.AbstractHttpField.FieldPosition;
 import org.waarp.gateway.kernel.AbstractHttpField.FieldRole;
+import org.waarp.gateway.kernel.HttpBusinessFactory;
+import org.waarp.gateway.kernel.HttpPage;
 import org.waarp.gateway.kernel.HttpPage.PageRole;
+import org.waarp.gateway.kernel.HttpPageHandler;
 import org.waarp.gateway.kernel.database.DbConstant;
 import org.waarp.gateway.kernel.database.WaarpActionLogger;
 import org.waarp.gateway.kernel.exception.HttpIncorrectRequestException;
 import org.waarp.gateway.kernel.session.DefaultHttpAuth;
 import org.waarp.gateway.kernel.session.HttpSession;
 
+import java.io.IOException;
+import java.nio.channels.ClosedChannelException;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
+import java.util.Set;
+
 /**
  * @author "Frederic Bregier"
- * 
+ *
  */
 public abstract class HttpRequestHandler extends SimpleChannelInboundHandler<HttpObject> {
     /**
@@ -93,6 +91,15 @@ public abstract class HttpRequestHandler extends SimpleChannelInboundHandler<Htt
     protected String baseStaticPath;
     protected String cookieSession;
     protected HttpPageHandler httpPageHandler;
+    protected HttpSession session;
+    protected HttpPostRequestDecoder decoder = null;
+    protected HttpPage httpPage;
+    protected AbstractHttpBusinessRequest businessRequest;
+    protected HttpResponseStatus status = HttpResponseStatus.OK;
+    protected String errorMesg;
+    protected HttpRequest request;
+    protected HttpMethod method;
+    protected volatile boolean willClose = false;
 
     /**
      * @param baseStaticPath
@@ -100,28 +107,15 @@ public abstract class HttpRequestHandler extends SimpleChannelInboundHandler<Htt
      * @param httpPageHandler
      */
     public HttpRequestHandler(String baseStaticPath, String cookieSession,
-            HttpPageHandler httpPageHandler) {
+                              HttpPageHandler httpPageHandler) {
         this.baseStaticPath = baseStaticPath;
         this.cookieSession = cookieSession;
         this.httpPageHandler = httpPageHandler;
     }
 
-    protected HttpSession session;
-    protected HttpPostRequestDecoder decoder = null;
-    protected HttpPage httpPage;
-    protected AbstractHttpBusinessRequest businessRequest;
-
-    protected HttpResponseStatus status = HttpResponseStatus.OK;
-    protected String errorMesg;
-
-    protected HttpRequest request;
-    protected HttpMethod method;
-
-    protected volatile boolean willClose = false;
-
     /**
      * Clean method
-     * 
+     *
      * Override if needed
      */
     protected void clean() {
@@ -141,7 +135,7 @@ public abstract class HttpRequestHandler extends SimpleChannelInboundHandler<Htt
 
     /**
      * Called at the beginning of every new request
-     * 
+     *
      * Override if needed
      */
     protected void initialize() {
@@ -155,7 +149,7 @@ public abstract class HttpRequestHandler extends SimpleChannelInboundHandler<Htt
 
     /**
      * set values from URI
-     * 
+     *
      * @throws HttpIncorrectRequestException
      */
     protected void getUriArgs() throws HttpIncorrectRequestException {
@@ -189,7 +183,7 @@ public abstract class HttpRequestHandler extends SimpleChannelInboundHandler<Htt
 
     /**
      * set values from Header
-     * 
+     *
      * @throws HttpIncorrectRequestException
      */
     protected void getHeaderArgs() throws HttpIncorrectRequestException {
@@ -216,7 +210,7 @@ public abstract class HttpRequestHandler extends SimpleChannelInboundHandler<Htt
 
     /**
      * set values from Cookies
-     * 
+     *
      * @throws HttpIncorrectRequestException
      */
     protected void getCookieArgs() throws HttpIncorrectRequestException {
@@ -231,7 +225,7 @@ public abstract class HttpRequestHandler extends SimpleChannelInboundHandler<Htt
             for (Cookie cookie : cookies) {
                 if (isCookieValid(cookie)) {
                     httpPage.setValue(businessRequest, cookie.name(), cookie.value(),
-                            FieldPosition.COOKIE);
+                                      FieldPosition.COOKIE);
                 }
             }
         }
@@ -241,14 +235,14 @@ public abstract class HttpRequestHandler extends SimpleChannelInboundHandler<Htt
 
     /**
      * To be used for instance to check correctness of connection
-     * 
+     *
      * @param ctx
      */
     protected abstract void checkConnection(ChannelHandlerContext ctx) throws HttpIncorrectRequestException;
 
     /**
      * Called when an error is raised. Note that clean() will be called just after.
-     * 
+     *
      * @param ctx
      */
     protected abstract void error(ChannelHandlerContext ctx);
@@ -265,7 +259,7 @@ public abstract class HttpRequestHandler extends SimpleChannelInboundHandler<Htt
                 HttpPage httpPageTemp;
                 try {
                     httpPageTemp = httpPageHandler.getHttpPage(uriRequest,
-                            method.name(), session);
+                                                               method.name(), session);
                 } catch (HttpIncorrectRequestException e1) {
                     // real error => 400
                     status = HttpResponseStatus.BAD_REQUEST;
@@ -280,7 +274,7 @@ public abstract class HttpRequestHandler extends SimpleChannelInboundHandler<Htt
                         logger.debug("simple get: " + this.request.uri());
                         // send content (image for instance)
                         HttpWriteCacheEnable.writeFile(request, ctx,
-                                baseStaticPath + uriRequest, cookieSession);
+                                                       baseStaticPath + uriRequest, cookieSession);
                         return;
                         // end of task
                     } else {
@@ -293,7 +287,7 @@ public abstract class HttpRequestHandler extends SimpleChannelInboundHandler<Htt
                 httpPage = httpPageTemp;
                 session.setCurrentCommand(httpPage.getPagerole());
                 WaarpActionLogger.logCreate(DbConstant.admin.getSession(), "Request received: "
-                        + httpPage.getPagename(), session);
+                                                                           + httpPage.getPagename(), session);
                 if (httpPageTemp.getPagerole() == PageRole.ERROR) {
                     status = HttpResponseStatus.BAD_REQUEST;
                     error(ctx);
@@ -303,7 +297,7 @@ public abstract class HttpRequestHandler extends SimpleChannelInboundHandler<Htt
                     willClose = true;
                     writeSimplePage(ctx);
                     WaarpActionLogger.logErrorAction(DbConstant.admin.getSession(), session,
-                            "Error: " + httpPage.getPagename(), status);
+                                                     "Error: " + httpPage.getPagename(), status);
                     return;
                     // end of task
                 }
@@ -313,30 +307,30 @@ public abstract class HttpRequestHandler extends SimpleChannelInboundHandler<Htt
                 getCookieArgs();
                 checkConnection(ctx);
                 switch (httpPage.getPagerole()) {
-                    case DELETE:
-                        // no body element
-                        delete(ctx);
-                        return;
-                    case GETDOWNLOAD:
-                        // no body element
-                        getFile(ctx);
-                        return;
-                    case HTML:
-                    case MENU:
-                        // no body element
-                        beforeSimplePage(ctx);
-                        writeSimplePage(ctx);
-                        return;
-                    case POST:
-                    case POSTUPLOAD:
-                    case PUT:
-                        post(ctx);
-                        return;
-                    default:
-                        // real error => 400
-                        status = HttpResponseStatus.BAD_REQUEST;
-                        writeErrorPage(ctx);
-                        return;
+                case DELETE:
+                    // no body element
+                    delete(ctx);
+                    return;
+                case GETDOWNLOAD:
+                    // no body element
+                    getFile(ctx);
+                    return;
+                case HTML:
+                case MENU:
+                    // no body element
+                    beforeSimplePage(ctx);
+                    writeSimplePage(ctx);
+                    return;
+                case POST:
+                case POSTUPLOAD:
+                case PUT:
+                    post(ctx);
+                    return;
+                default:
+                    // real error => 400
+                    status = HttpResponseStatus.BAD_REQUEST;
+                    writeErrorPage(ctx);
+                    return;
                 }
             } else {
                 // New chunk is received: only for Put, Post or PostMulti!
@@ -355,7 +349,7 @@ public abstract class HttpRequestHandler extends SimpleChannelInboundHandler<Htt
 
     /**
      * Utility to prepare error
-     * 
+     *
      * @param ctx
      * @param message
      * @throws HttpIncorrectRequestException
@@ -373,7 +367,7 @@ public abstract class HttpRequestHandler extends SimpleChannelInboundHandler<Htt
 
     /**
      * Instantiate the page and the businessRequest handler
-     * 
+     *
      * @param ctx
      * @return True if initialized
      */
@@ -388,12 +382,12 @@ public abstract class HttpRequestHandler extends SimpleChannelInboundHandler<Htt
 
     /**
      * Write an error page
-     * 
+     *
      * @param ctx
      */
     protected void writeErrorPage(ChannelHandlerContext ctx) {
         WaarpActionLogger.logErrorAction(DbConstant.admin.getSession(), session,
-                "Error: " + (httpPage == null ? "no page" : httpPage.getPagename()), status);
+                                         "Error: " + (httpPage == null? "no page" : httpPage.getPagename()), status);
         error(ctx);
         clean();
         willClose = true;
@@ -412,7 +406,7 @@ public abstract class HttpRequestHandler extends SimpleChannelInboundHandler<Htt
 
     /**
      * To allow quick answer even if in very bad shape
-     * 
+     *
      * @param ctx
      */
     protected void forceClosing(ChannelHandlerContext ctx) {
@@ -430,23 +424,23 @@ public abstract class HttpRequestHandler extends SimpleChannelInboundHandler<Htt
             future.addListener(WaarpSslUtility.SSLCLOSE);
         }
         WaarpActionLogger.logErrorAction(DbConstant.admin.getSession(), session,
-                "Error: " + httpPage.getPagename(), status);
+                                         "Error: " + httpPage.getPagename(), status);
     }
 
     /**
      * Write a simple page from current httpPage and businessRequest
-     * 
+     *
      * @param ctx
      * @throws HttpIncorrectRequestException
      */
     protected void writeSimplePage(ChannelHandlerContext ctx) throws HttpIncorrectRequestException {
-        logger.debug("HttpPage: " + (httpPage != null ? httpPage.getPagename() : "no page") +
-                " businessRequest: "
-                + (businessRequest != null ? businessRequest.getClass().getName() : "no BR"));
+        logger.debug("HttpPage: " + (httpPage != null? httpPage.getPagename() : "no page") +
+                     " businessRequest: "
+                     + (businessRequest != null? businessRequest.getClass().getName() : "no BR"));
         if (httpPage.getPagerole() == PageRole.ERROR) {
             try {
                 httpPage.setValue(businessRequest, AbstractHttpField.ERRORINFO, errorMesg,
-                        FieldPosition.BODY);
+                                  FieldPosition.BODY);
             } catch (HttpIncorrectRequestException e) {
                 // ignore
             }
@@ -463,7 +457,7 @@ public abstract class HttpRequestHandler extends SimpleChannelInboundHandler<Htt
             // There's no need to add 'Content-Length' header
             // if this is the last response.
             response.headers().set(HttpHeaderNames.CONTENT_LENGTH,
-                    String.valueOf(length));
+                                   String.valueOf(length));
         }
         // Write the response.
         ChannelFuture future = ctx.writeAndFlush(response);
@@ -476,7 +470,7 @@ public abstract class HttpRequestHandler extends SimpleChannelInboundHandler<Htt
 
     /**
      * Could be used for other method (as validation of an authent cookie)
-     * 
+     *
      * @param cookie
      * @return True if this cookie is valid
      */
@@ -484,9 +478,9 @@ public abstract class HttpRequestHandler extends SimpleChannelInboundHandler<Htt
 
     /**
      * Method to add specific Cookies from business definition
-     * 
+     *
      * Override if needed
-     * 
+     *
      * @param response
      * @param cookieNames
      */
@@ -494,14 +488,14 @@ public abstract class HttpRequestHandler extends SimpleChannelInboundHandler<Htt
         for (AbstractHttpField field : httpPage.getFieldsForRequest(businessRequest).values()) {
             if (field.isFieldcookieset() && !cookieNames.contains(field.getFieldname())) {
                 response.headers().add(HttpHeaderNames.SET_COOKIE,
-                        ServerCookieEncoder.LAX.encode(field.getFieldname(), field.fieldvalue));
+                                       ServerCookieEncoder.LAX.encode(field.getFieldname(), field.fieldvalue));
             }
         }
     }
 
     /**
      * Method to set Cookies in response
-     * 
+     *
      * @param response
      */
     protected void setCookieEncoder(FullHttpResponse response) {
@@ -528,7 +522,7 @@ public abstract class HttpRequestHandler extends SimpleChannelInboundHandler<Htt
         }
         if (!foundCookieSession) {
             response.headers().add(HttpHeaderNames.SET_COOKIE,
-                    ServerCookieEncoder.LAX.encode(cookieSession, session.getCookieSession()));
+                                   ServerCookieEncoder.LAX.encode(cookieSession, session.getCookieSession()));
             cookiesName.add(cookieSession);
         }
         addBusinessCookie(response, cookiesName);
@@ -557,11 +551,12 @@ public abstract class HttpRequestHandler extends SimpleChannelInboundHandler<Htt
         }
         boolean keepAlive = HttpUtil.isKeepAlive(request);
         willClose = willClose ||
-                status != HttpResponseStatus.OK ||
-                HttpHeaderValues.CLOSE.contentEqualsIgnoreCase(request
-                        .headers().get(HttpHeaderNames.CONNECTION)) ||
-                request.protocolVersion().equals(HttpVersion.HTTP_1_0) &&
-                !keepAlive;
+                    status != HttpResponseStatus.OK ||
+                    HttpHeaderValues.CLOSE.contentEqualsIgnoreCase(request
+                                                                           .headers()
+                                                                           .get(HttpHeaderNames.CONNECTION)) ||
+                    request.protocolVersion().equals(HttpVersion.HTTP_1_0) &&
+                    !keepAlive;
         if (willClose) {
             keepAlive = false;
         }
@@ -574,21 +569,21 @@ public abstract class HttpRequestHandler extends SimpleChannelInboundHandler<Htt
         }
         if (keepAlive) {
             response.headers().set(HttpHeaderNames.CONNECTION,
-                    HttpHeaderValues.KEEP_ALIVE);
+                                   HttpHeaderValues.KEEP_ALIVE);
         }
         setCookieEncoder(response);
         return response;
     }
 
     /**
-     * 
+     *
      * @return the filename used for this request
      */
     protected abstract String getFilename();
 
     /**
      * Called before simple Page is called (Menu or HTML)
-     * 
+     *
      * @param ctx
      * @throws HttpIncorrectRequestException
      */
@@ -596,7 +591,7 @@ public abstract class HttpRequestHandler extends SimpleChannelInboundHandler<Htt
 
     /**
      * Method that will use the result and send back the result
-     * 
+     *
      * @param ctx
      * @throws HttpIncorrectRequestException
      */
@@ -607,36 +602,36 @@ public abstract class HttpRequestHandler extends SimpleChannelInboundHandler<Htt
                 throw new HttpIncorrectRequestException("Request unvalid");
             }
             switch (httpPage.getPagerole()) {
-                case DELETE:
-                    session.setFilename(getFilename());
-                    finalDelete(ctx);
-                    WaarpActionLogger.logAction(DbConstant.admin.getSession(), session,
-                            "Delete OK", status, UpdatedInfo.DONE);
-                    break;
-                case GETDOWNLOAD:
-                    finalGet(ctx);
-                    WaarpActionLogger.logAction(DbConstant.admin.getSession(), session,
-                            "Download OK", status, UpdatedInfo.DONE);
-                    break;
-                case POST:
-                    finalPost(ctx);
-                    WaarpActionLogger.logAction(DbConstant.admin.getSession(), session,
-                            "Post OK", status, UpdatedInfo.DONE);
-                    break;
-                case POSTUPLOAD:
-                    finalPostUpload(ctx);
-                    WaarpActionLogger.logAction(DbConstant.admin.getSession(), session,
-                            "PostUpload OK", status, UpdatedInfo.DONE);
-                    break;
-                case PUT:
-                    finalPut(ctx);
-                    WaarpActionLogger.logAction(DbConstant.admin.getSession(), session,
-                            "Put OK", status, UpdatedInfo.DONE);
-                    break;
-                default:
-                    // real error => 400
-                    status = HttpResponseStatus.BAD_REQUEST;
-                    throw new HttpIncorrectRequestException("Unknown request");
+            case DELETE:
+                session.setFilename(getFilename());
+                finalDelete(ctx);
+                WaarpActionLogger.logAction(DbConstant.admin.getSession(), session,
+                                            "Delete OK", status, UpdatedInfo.DONE);
+                break;
+            case GETDOWNLOAD:
+                finalGet(ctx);
+                WaarpActionLogger.logAction(DbConstant.admin.getSession(), session,
+                                            "Download OK", status, UpdatedInfo.DONE);
+                break;
+            case POST:
+                finalPost(ctx);
+                WaarpActionLogger.logAction(DbConstant.admin.getSession(), session,
+                                            "Post OK", status, UpdatedInfo.DONE);
+                break;
+            case POSTUPLOAD:
+                finalPostUpload(ctx);
+                WaarpActionLogger.logAction(DbConstant.admin.getSession(), session,
+                                            "PostUpload OK", status, UpdatedInfo.DONE);
+                break;
+            case PUT:
+                finalPut(ctx);
+                WaarpActionLogger.logAction(DbConstant.admin.getSession(), session,
+                                            "Put OK", status, UpdatedInfo.DONE);
+                break;
+            default:
+                // real error => 400
+                status = HttpResponseStatus.BAD_REQUEST;
+                throw new HttpIncorrectRequestException("Unknown request");
             }
         } catch (HttpIncorrectRequestException e) {
             // real error => 400
@@ -649,7 +644,7 @@ public abstract class HttpRequestHandler extends SimpleChannelInboundHandler<Htt
 
     /**
      * Method that will use the uploaded file and prepare the result
-     * 
+     *
      * @param ctx
      */
     protected abstract void finalDelete(ChannelHandlerContext ctx) throws HttpIncorrectRequestException;
@@ -662,35 +657,35 @@ public abstract class HttpRequestHandler extends SimpleChannelInboundHandler<Htt
      * connection is closed or when a new request on the same connection occurs, the clean method is
      * automatically called. The usage of a HttpCleanChannelFutureListener on the last write might
      * be useful.)
-     * 
+     *
      * @param ctx
      */
     protected abstract void finalGet(ChannelHandlerContext ctx) throws HttpIncorrectRequestException;
 
     /**
      * Method that will use the uploaded file and prepare the result
-     * 
+     *
      * @param ctx
      */
     protected abstract void finalPostUpload(ChannelHandlerContext ctx) throws HttpIncorrectRequestException;
 
     /**
      * Method that will use the post result and prepare the result
-     * 
+     *
      * @param ctx
      */
     protected abstract void finalPost(ChannelHandlerContext ctx) throws HttpIncorrectRequestException;
 
     /**
      * Method that will use the put result and prepare the result
-     * 
+     *
      * @param ctx
      */
     protected abstract void finalPut(ChannelHandlerContext ctx) throws HttpIncorrectRequestException;
 
     /**
      * Validate all data as they should be all received (done before the isRequestValid)
-     * 
+     *
      * @param ctx
      * @throws HttpIncorrectRequestException
      */
@@ -699,7 +694,7 @@ public abstract class HttpRequestHandler extends SimpleChannelInboundHandler<Htt
 
     /**
      * Method that get "get" data, answer has to be written in the business part finalGet
-     * 
+     *
      * @param ctx
      */
     protected void getFile(ChannelHandlerContext ctx) throws HttpIncorrectRequestException {
@@ -708,7 +703,7 @@ public abstract class HttpRequestHandler extends SimpleChannelInboundHandler<Htt
 
     /**
      * Method that get delete data
-     * 
+     *
      * @param ctx
      */
     protected void delete(ChannelHandlerContext ctx) throws HttpIncorrectRequestException {
@@ -719,7 +714,7 @@ public abstract class HttpRequestHandler extends SimpleChannelInboundHandler<Htt
 
     /**
      * Method that get post data
-     * 
+     *
      * @param ctx
      * @throws HttpIncorrectRequestException
      */
@@ -747,7 +742,7 @@ public abstract class HttpRequestHandler extends SimpleChannelInboundHandler<Htt
 
     /**
      * Method that get a chunk of data
-     * 
+     *
      * @param ctx
      * @param chunk
      * @throws HttpIncorrectRequestException
@@ -796,7 +791,7 @@ public abstract class HttpRequestHandler extends SimpleChannelInboundHandler<Htt
 
     /**
      * Read all InterfaceHttpData from finished transfer
-     * 
+     *
      * @param ctx
      * @throws HttpIncorrectRequestException
      */
@@ -817,7 +812,7 @@ public abstract class HttpRequestHandler extends SimpleChannelInboundHandler<Htt
 
     /**
      * Read request by chunk and getting values from chunk to chunk
-     * 
+     *
      * @param ctx
      * @throws HttpIncorrectRequestException
      */
@@ -838,7 +833,7 @@ public abstract class HttpRequestHandler extends SimpleChannelInboundHandler<Htt
 
     /**
      * Read one Data
-     * 
+     *
      * @param data
      * @param ctx
      * @throws HttpIncorrectRequestException
@@ -881,7 +876,7 @@ public abstract class HttpRequestHandler extends SimpleChannelInboundHandler<Htt
 
     /**
      * Default Session Cookie generator
-     * 
+     *
      * @return the new session cookie value
      */
     protected String getNewCookieSession() {
@@ -890,7 +885,7 @@ public abstract class HttpRequestHandler extends SimpleChannelInboundHandler<Htt
 
     /**
      * Default session creation
-     * 
+     *
      * @param ctx
      */
     protected void createNewSessionAtConnection(ChannelHandlerContext ctx) {

@@ -1,24 +1,20 @@
 /**
  * This file is part of Waarp Project.
- * 
- * Copyright 2009, Frederic Bregier, and individual contributors by the @author tags. See the
- * COPYRIGHT.txt in the distribution for a full listing of individual contributors.
- * 
- * All Waarp Project is free software: you can redistribute it and/or modify it under the terms of
- * the GNU General Public License as published by the Free Software Foundation, either version 3 of
- * the License, or (at your option) any later version.
- * 
- * Waarp is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even
- * the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General
- * Public License for more details.
- * 
+ * <p>
+ * Copyright 2009, Frederic Bregier, and individual contributors by the @author tags. See the COPYRIGHT.txt in the
+ * distribution for a full listing of individual contributors.
+ * <p>
+ * All Waarp Project is free software: you can redistribute it and/or modify it under the terms of the GNU General
+ * Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any
+ * later version.
+ * <p>
+ * Waarp is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty
+ * of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+ * <p>
  * You should have received a copy of the GNU General Public License along with Waarp . If not, see
  * <http://www.gnu.org/licenses/>.
  */
 package org.waarp.gateway.kernel;
-
-import java.net.SocketAddress;
-import java.util.LinkedHashMap;
 
 import io.netty.handler.codec.http.multipart.FileUpload;
 import org.waarp.common.exception.FileTransferException;
@@ -29,9 +25,12 @@ import org.waarp.common.utility.WaarpStringUtils;
 import org.waarp.gateway.kernel.AbstractHttpField.FieldPosition;
 import org.waarp.gateway.kernel.exception.HttpIncorrectRequestException;
 
+import java.net.SocketAddress;
+import java.util.LinkedHashMap;
+
 /**
  * @author Frederic Bregier
- * 
+ *
  */
 public class HttpPage {
     /**
@@ -39,11 +38,6 @@ public class HttpPage {
      */
     private static final WaarpLogger logger = WaarpLoggerFactory
             .getLogger(HttpPage.class);
-
-    public static enum PageRole {
-        HTML, MENU, GETDOWNLOAD, POST, PUT, POSTUPLOAD, DELETE, ERROR;
-    }
-
     /*
      * pagename, fileform, header, footer, beginform, endform, nextinform, uri, pagerole, errorpage,
      * classname, fields
@@ -61,9 +55,8 @@ public class HttpPage {
     private String classname;
     private LinkedHashMap<String, AbstractHttpField> fields;
     private HttpBusinessFactory httpBusinessFactory;
-
     /**
-     * 
+     *
      * @param pagename
      * @param fileform
      * @param header
@@ -81,9 +74,9 @@ public class HttpPage {
      * @throws InstantiationException
      */
     public HttpPage(String pagename, String fileform, String header, String footer,
-            String beginform, String endform, String nextinform,
-            String uri, PageRole pagerole, String errorpage,
-            String classname, LinkedHashMap<String, AbstractHttpField> fields)
+                    String beginform, String endform, String nextinform,
+                    String uri, PageRole pagerole, String errorpage,
+                    String classname, LinkedHashMap<String, AbstractHttpField> fields)
             throws ClassNotFoundException, InstantiationException, IllegalAccessException {
         this.setPagename(pagename);
         this.setFileform(fileform);
@@ -107,7 +100,7 @@ public class HttpPage {
 
     /**
      * Called at the beginning of every request to get the current HttpBusinessFactory to use.
-     * 
+     *
      * @param remoteAddress
      *            the remote socket address in use
      * @return AbstractHttpBusinessRequest to use during the request
@@ -123,7 +116,7 @@ public class HttpPage {
             linkedHashMap.put(field.getFieldname(), newfield);
         }
         return this.getHttpBusinessFactory().getNewHttpBusinessRequest(remoteAddress, linkedHashMap,
-                this);
+                                                                       this);
     }
 
     public String getPageValue(String value) {
@@ -138,7 +131,7 @@ public class HttpPage {
     }
 
     /**
-     * 
+     *
      * @param reference
      * @return the Html results for all pages except Get (result of a download)
      * @throws HttpIncorrectRequestException
@@ -278,9 +271,9 @@ public class HttpPage {
 
     /**
      * Set the value to the field according to fieldname.
-     * 
+     *
      * If the field is not registered, the field is ignored.
-     * 
+     *
      * @param reference
      * @param fieldname
      * @param value
@@ -288,7 +281,7 @@ public class HttpPage {
      * @throws HttpIncorrectRequestException
      */
     public void setValue(AbstractHttpBusinessRequest reference, String fieldname, String value,
-            FieldPosition position)
+                         FieldPosition position)
             throws HttpIncorrectRequestException {
         LinkedHashMap<String, AbstractHttpField> requestFields = reference
                 .getLinkedHashMapHttpFields();
@@ -303,22 +296,23 @@ public class HttpPage {
                 }
             } else {
                 throw new HttpIncorrectRequestException("Invalid position: " + position +
-                        " while field is supposed to be in " + field.getFieldposition());
+                                                        " while field is supposed to be in " +
+                                                        field.getFieldposition());
             }
         }
     }
 
     /**
      * Set the value to the field according to fieldname.
-     * 
+     *
      * If the field is not registered, the field is ignored.
-     * 
+     *
      * @param reference
      * @param fieldname
      * @throws HttpIncorrectRequestException
      */
     public void setValue(AbstractHttpBusinessRequest reference, String fieldname,
-            FileUpload fileUpload)
+                         FileUpload fileUpload)
             throws HttpIncorrectRequestException {
         LinkedHashMap<String, AbstractHttpField> requestFields = reference
                 .getLinkedHashMapHttpFields();
@@ -334,7 +328,7 @@ public class HttpPage {
     }
 
     /**
-     * 
+     *
      * @param reference
      * @return True if the request is fully valid
      */
@@ -344,7 +338,7 @@ public class HttpPage {
         for (AbstractHttpField field : requestFields.values()) {
             if (field.isFieldmandatory() && !field.isPresent()) {
                 logger.warn("Request invalid since the following field is absent: "
-                        + field.getFieldname());
+                            + field.getFieldname());
                 return false;
             }
         }
@@ -353,7 +347,7 @@ public class HttpPage {
 
     /**
      * Convenient method to get the fields list
-     * 
+     *
      * @param reference
      * @return the fields list from the current AbstractHttpBusinessRequest
      */
@@ -364,7 +358,7 @@ public class HttpPage {
 
     /**
      * Convenient method to get the value of one field
-     * 
+     *
      * @param reference
      * @param fieldname
      * @return the String value
@@ -379,7 +373,7 @@ public class HttpPage {
 
     /**
      * Convenient method to get the value of one field
-     * 
+     *
      * @param reference
      * @param fieldname
      * @return the FileUpload value
@@ -394,7 +388,7 @@ public class HttpPage {
 
     /**
      * Convenient method to get one field
-     * 
+     *
      * @param reference
      * @param fieldname
      * @return the AbstractHttpField value
@@ -583,5 +577,9 @@ public class HttpPage {
      */
     private void setHttpBusinessFactory(HttpBusinessFactory httpBusinessFactory) {
         this.httpBusinessFactory = httpBusinessFactory;
+    }
+
+    public static enum PageRole {
+        HTML, MENU, GETDOWNLOAD, POST, PUT, POSTUPLOAD, DELETE, ERROR;
     }
 }
