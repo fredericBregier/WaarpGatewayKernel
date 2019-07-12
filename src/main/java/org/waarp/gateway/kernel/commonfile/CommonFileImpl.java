@@ -22,7 +22,6 @@ import org.waarp.common.file.filesystembased.FilesystemBasedFileImpl;
 
 /**
  * @author "Frederic Bregier"
- *
  */
 public class CommonFileImpl extends FilesystemBasedFileImpl {
 
@@ -31,6 +30,7 @@ public class CommonFileImpl extends FilesystemBasedFileImpl {
      * @param dir
      * @param path
      * @param append
+     *
      * @throws CommandAbstractException
      */
     public CommonFileImpl(SessionInterface session, CommonDirImpl dir, String path,

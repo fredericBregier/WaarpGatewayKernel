@@ -43,7 +43,6 @@ import java.util.Set;
  * Rest Method handler (used by Http Rest Handler)
  *
  * @author "Frederic Bregier"
- *
  */
 public abstract class RestMethodHandler {
     /**
@@ -59,16 +58,11 @@ public abstract class RestMethodHandler {
     protected final RestConfiguration restConfiguration;
 
     /**
-     * @param name
-     *            name associated with this Method Handler (to enable some HashMap or Enum classification)
-     * @param path
-     *            associated base Path
-     * @param isBodyJsonDecode
-     *            Is this method Handler using a Json as Body
-     * @param config
-     *            the associated configuration
-     * @param method
-     *            the associated methods
+     * @param name name associated with this Method Handler (to enable some HashMap or Enum classification)
+     * @param path associated base Path
+     * @param isBodyJsonDecode Is this method Handler using a Json as Body
+     * @param config the associated configuration
+     * @param method the associated methods
      */
     public RestMethodHandler(String name, String path, boolean isBodyJsonDecode, RestConfiguration config,
                              METHOD... method) {
@@ -90,10 +84,8 @@ public abstract class RestMethodHandler {
     /**
      * Will assign the intersection of both set of Methods
      *
-     * @param selectedMethods
-     *            the selected Methods among available
-     * @param validMethod
-     *            the validMethod for this handler
+     * @param selectedMethods the selected Methods among available
+     * @param validMethod the validMethod for this handler
      */
     protected void setIntersectionMethods(METHOD[] selectedMethods, METHOD... validMethod) {
         Set<METHOD> set = new HashSet<METHOD>();
@@ -118,8 +110,8 @@ public abstract class RestMethodHandler {
     }
 
     /**
-     *
      * @param method
+     *
      * @return True if the Method is valid for this Handler
      */
     public boolean isMethodIncluded(METHOD method) {
@@ -127,11 +119,13 @@ public abstract class RestMethodHandler {
     }
 
     /**
-     * Check the session (arguments, result) vs handler correctness, called before any BODY elements but after URI and HEADER.
+     * Check the session (arguments, result) vs handler correctness, called before any BODY elements but after URI and
+     * HEADER.
      *
      * @param handler
      * @param arguments
      * @param result
+     *
      * @throws HttpForbiddenRequestException
      */
     public abstract void checkHandlerSessionCorrectness(HttpRestHandler handler, RestArgument arguments,
@@ -144,6 +138,7 @@ public abstract class RestMethodHandler {
      * @param data
      * @param arguments
      * @param result
+     *
      * @throws HttpIncorrectRequestException
      */
     public abstract void getFileUpload(HttpRestHandler handler, FileUpload data, RestArgument arguments,
@@ -156,7 +151,9 @@ public abstract class RestMethodHandler {
      * @param body
      * @param arguments
      * @param result
+     *
      * @return the object related to BODY decoding
+     *
      * @throws HttpIncorrectRequestException
      */
     public abstract Object getBody(HttpRestHandler handler, ByteBuf body, RestArgument arguments, RestArgument result)
@@ -169,6 +166,7 @@ public abstract class RestMethodHandler {
      * @param arguments
      * @param result
      * @param body
+     *
      * @throws HttpIncorrectRequestException
      * @throws HttpNotFoundRequestException
      */
@@ -185,6 +183,7 @@ public abstract class RestMethodHandler {
      * @param result
      * @param body
      * @param exception
+     *
      * @return the status to used in sendReponse
      */
     public HttpResponseStatus handleException(HttpRestHandler handler, RestArgument arguments, RestArgument result,
@@ -219,6 +218,7 @@ public abstract class RestMethodHandler {
      * @param result
      * @param body
      * @param status
+     *
      * @return The ChannelFuture if this response will need the channel to be closed, else null
      */
     public abstract ChannelFuture sendResponse(HttpRestHandler handler, ChannelHandlerContext ctx,
@@ -275,7 +275,6 @@ public abstract class RestMethodHandler {
     }
 
     /**
-     *
      * @return the detail of the method handler
      */
     protected abstract ArrayNode getDetailedAllow();

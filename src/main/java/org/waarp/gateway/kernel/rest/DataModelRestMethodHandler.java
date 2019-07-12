@@ -48,7 +48,6 @@ import java.nio.charset.UnsupportedCharsetException;
  * Generic Rest Model handler for Data model (CRUD access to a database table)
  *
  * @author "Frederic Bregier"
- *
  */
 public abstract class DataModelRestMethodHandler<E extends AbstractDbData> extends RestMethodHandler {
 
@@ -67,8 +66,7 @@ public abstract class DataModelRestMethodHandler<E extends AbstractDbData> exten
                                                RestArgument result, METHOD method) throws HttpForbiddenRequestException;
 
     /**
-     * allowed: GET iff name or name/id, PUT iff name/id, POST iff name (no id),
-     * DELETE iff name/id and allowed
+     * allowed: GET iff name or name/id, PUT iff name/id, POST iff name (no id), DELETE iff name/id and allowed
      */
     @Override
     public void checkHandlerSessionCorrectness(HttpRestHandler handler, RestArgument arguments,
@@ -169,14 +167,16 @@ public abstract class DataModelRestMethodHandler<E extends AbstractDbData> exten
     }
 
     /**
-     * For Read or Update, should include a select() from the database.
-     * Shall not be used for Create. JSON_ID should be checked for the primary id.
+     * For Read or Update, should include a select() from the database. Shall not be used for Create. JSON_ID should be
+     * checked for the primary id.
      *
      * @param handler
      * @param arguments
      * @param result
      * @param body
+     *
      * @return the Object E according to URI and other arguments
+     *
      * @throws HttpIncorrectRequestException
      * @throws HttpInvalidAuthenticationException
      * @throws HttpNotFoundRequestException
@@ -193,7 +193,9 @@ public abstract class DataModelRestMethodHandler<E extends AbstractDbData> exten
      * @param arguments
      * @param result
      * @param body
+     *
      * @return a new Object E according to URI and other arguments
+     *
      * @throws HttpIncorrectRequestException
      * @throws HttpInvalidAuthenticationException
      */
@@ -208,7 +210,9 @@ public abstract class DataModelRestMethodHandler<E extends AbstractDbData> exten
      * @param arguments
      * @param result
      * @param body
+     *
      * @return the associated preparedStatement
+     *
      * @throws HttpIncorrectRequestException
      * @throws HttpInvalidAuthenticationException
      */
@@ -218,9 +222,10 @@ public abstract class DataModelRestMethodHandler<E extends AbstractDbData> exten
                    HttpInvalidAuthenticationException;
 
     /**
-     *
      * @param statement
+     *
      * @return the Object E according to statement (using next) or null if no more item
+     *
      * @throws HttpIncorrectRequestException
      * @throws HttpNotFoundRequestException
      */
@@ -228,7 +233,6 @@ public abstract class DataModelRestMethodHandler<E extends AbstractDbData> exten
                                                                                         HttpNotFoundRequestException;
 
     /**
-     *
      * @return the primary property name used in the uri for Get,Put,Delete for unique access
      */
     public abstract String getPrimaryPropertyName();
@@ -245,6 +249,7 @@ public abstract class DataModelRestMethodHandler<E extends AbstractDbData> exten
      * @param arguments
      * @param result
      * @param body
+     *
      * @throws HttpIncorrectRequestException
      * @throws HttpInvalidAuthenticationException
      * @throws HttpNotFoundRequestException
@@ -292,6 +297,7 @@ public abstract class DataModelRestMethodHandler<E extends AbstractDbData> exten
      * @param arguments
      * @param result
      * @param body
+     *
      * @throws HttpIncorrectRequestException
      * @throws HttpInvalidAuthenticationException
      * @throws HttpNotFoundRequestException
@@ -313,6 +319,7 @@ public abstract class DataModelRestMethodHandler<E extends AbstractDbData> exten
      * @param arguments
      * @param result
      * @param body
+     *
      * @throws HttpIncorrectRequestException
      * @throws HttpInvalidAuthenticationException
      * @throws HttpNotFoundRequestException
@@ -345,6 +352,7 @@ public abstract class DataModelRestMethodHandler<E extends AbstractDbData> exten
      * @param arguments
      * @param result
      * @param body
+     *
      * @throws HttpIncorrectRequestException
      * @throws HttpInvalidAuthenticationException
      */
@@ -370,6 +378,7 @@ public abstract class DataModelRestMethodHandler<E extends AbstractDbData> exten
      * @param arguments
      * @param result
      * @param body
+     *
      * @throws HttpIncorrectRequestException
      * @throws HttpInvalidAuthenticationException
      * @throws HttpNotFoundRequestException

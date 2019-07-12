@@ -36,12 +36,12 @@ import org.waarp.gateway.kernel.rest.HttpRestHandler.METHOD;
 
 /**
  * @author "Frederic Bregier"
- *
  */
 public class DbTransferLogDataModelRestMethodHandler extends DataModelRestMethodHandler<DbTransferLog> {
     public static final String BASEURI = "logs";
     public String user;
     public String account;
+
     /**
      * @param name
      * @param config

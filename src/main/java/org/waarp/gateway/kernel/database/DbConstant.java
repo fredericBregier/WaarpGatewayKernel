@@ -20,7 +20,6 @@ package org.waarp.gateway.kernel.database;
  * Constants value for database
  *
  * @author Frederic Bregier
- *
  */
 public class DbConstant extends org.waarp.common.database.DbConstant {
 }

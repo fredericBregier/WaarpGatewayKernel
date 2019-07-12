@@ -37,7 +37,6 @@ import java.util.List;
 
 /**
  * @author frederic bregier
- *
  */
 public class HttpJsonDefinition {
     /**
@@ -86,7 +85,9 @@ public class HttpJsonDefinition {
      * Initiate the configuration from the json file for Http server
      *
      * @param filename
+     *
      * @return the List<HttpPage> if OK
+     *
      * @throws InvalidArgumentException
      * @throws ClassNotFoundException
      * @throws IllegalAccessException
@@ -175,7 +176,6 @@ public class HttpJsonDefinition {
 
     /**
      * Structure of the Configuration: Field
-     *
      */
     private static final class ConfigHttpField {
         // 1 field
@@ -193,7 +193,6 @@ public class HttpJsonDefinition {
 
     /**
      * Structure of the Configuration: Page
-     *
      */
     private static final class ConfigHttpPage {
         // 1 Page
@@ -214,9 +213,8 @@ public class HttpJsonDefinition {
 
     /**
      * Structure of the Configuration: Pages
-     *
+     * <p>
      * from root => Pages.Page
-     *
      */
     private static final class ConfigHttpPages {
         // all pages

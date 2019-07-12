@@ -21,7 +21,6 @@ import io.netty.channel.ChannelFutureListener;
 
 /**
  * @author Frederic Bregier
- *
  */
 class HttpCleanChannelFutureListener implements ChannelFutureListener {
     protected final HttpRequestHandler handler;

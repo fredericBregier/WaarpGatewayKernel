@@ -20,7 +20,6 @@ package org.waarp.gateway.kernel.session;
  * Interface for CommandExecutor (defined in WaarpR66 module since dependency)
  *
  * @author "Frederic Bregier"
- *
  */
 public interface CommandExecutorInterface {
 
@@ -28,6 +27,7 @@ public interface CommandExecutorInterface {
      * Check if the given operation is allowed
      *
      * @param isStore
+     *
      * @return True if allowed, else False
      */
     public abstract boolean isValidOperation(boolean isStore);

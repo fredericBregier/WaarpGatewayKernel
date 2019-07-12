@@ -30,15 +30,13 @@ import java.util.LinkedHashMap;
 
 /**
  * @author "Frederic Bregier"
- *
  */
 public abstract class HttpSapBusinessFactory extends HttpBusinessFactory {
 
     /**
-     * Array of status: one entry by SapFunction, each entry has in that order UrlMandatory,
-     * UrlOptional, HeaderMandatory, HeaderOptional,BodyMandatory, BodyOptional, SecurityOptional.
-     * If one SapArg is in the array, it has the status associated with the rank. One SapArg can
-     * appears in multiple rank.
+     * Array of status: one entry by SapFunction, each entry has in that order UrlMandatory, UrlOptional,
+     * HeaderMandatory, HeaderOptional,BodyMandatory, BodyOptional, SecurityOptional. If one SapArg is in the array, it
+     * has the status associated with the rank. One SapArg can appears in multiple rank.
      */
     private static final SapField[][][] allStatus = {
             // info
@@ -604,8 +602,8 @@ public abstract class HttpSapBusinessFactory extends HttpBusinessFactory {
     }
 
     /**
-     * All functions for SapArg: some could be not implemented. Note that create and update exist in
-     * two modes (Post and Put)
+     * All functions for SapArg: some could be not implemented. Note that create and update exist in two modes (Post and
+     * Put)
      */
     public static enum SapFunction {
         info,

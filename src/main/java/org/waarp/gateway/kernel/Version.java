@@ -2,12 +2,20 @@
 package org.waarp.gateway.kernel;
 
 /**
- * Provides the version information of Waarp Gateway Http.
+ * Provides the version information of Waarp Gateway Kernel.
  */
 public final class Version {
- /** The version identifier. */
- public static final String ID = "3.0.9";
- /** Prints out the version identifier to stdout. */
- public static void main(String[] args) { System.out.println(ID); }
- private Version() { super(); }
+ /**
+ * The version identifier.
+ */
+ public static final String ID = "3.0.11";
+ /**
+ * Prints out the version identifier to stdout.
+ */
+ public static void main(String[] args) {
+     System.out.println(ID);
+ }
+ private Version() {
+     super();
+ }
 }

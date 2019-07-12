@@ -43,7 +43,6 @@ import java.util.List;
 
 /**
  * @author frederic bregier
- *
  */
 public class HttpXmlDefinition {
     /**
@@ -172,7 +171,6 @@ public class HttpXmlDefinition {
 
     /**
      * Structure of the Configuration: Field
-     *
      */
     private static final XmlDecl[] configHttpField = {
             // 1 Field
@@ -190,7 +188,6 @@ public class HttpXmlDefinition {
 
     /**
      * Structure of the Configuration: Page
-     *
      */
     private static final XmlDecl[] configHttpPage = {
             // 1 Page
@@ -212,9 +209,8 @@ public class HttpXmlDefinition {
 
     /**
      * Structure of the Configuration: Pages
-     *
+     * <p>
      * from root => Pages.Page
-     *
      */
     private static final XmlDecl[] configHttpPages = {
             // all pages
@@ -391,7 +387,9 @@ public class HttpXmlDefinition {
      * Initiate the configuration from the xml file for Http server
      *
      * @param filename
+     *
      * @return the List<HttpPage> if OK
+     *
      * @throws InvalidArgumentException
      * @throws ClassNotFoundException
      * @throws IllegalAccessException
@@ -436,6 +434,7 @@ public class HttpXmlDefinition {
      *
      * @param name
      * @param value
+     *
      * @return the new Element
      */
     private static final Element newElement(String name, String value) {

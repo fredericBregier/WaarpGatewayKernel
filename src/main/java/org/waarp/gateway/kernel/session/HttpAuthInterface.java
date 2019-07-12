@@ -24,7 +24,6 @@ import org.waarp.common.file.AuthInterface;
 
 /**
  * @author Frederic Bregier
- *
  */
 public interface HttpAuthInterface extends AuthInterface {
     /**
@@ -33,21 +32,19 @@ public interface HttpAuthInterface extends AuthInterface {
     public String getAccount();
 
     /**
-     * @param account
-     *            the account to set
-     * @return (NOOP, 230) if the Account is OK, else return the following command that must follow
-     *         and the associated reply
-     * @throws Reply421Exception
-     *             if there is a problem during the authentication
-     * @throws Reply530Exception
-     *             if there is a problem during the authentication
+     * @param account the account to set
+     *
+     * @return (NOOP, 230) if the Account is OK, else return the following command that must follow and the associated
+     * reply
+     *
+     * @throws Reply421Exception if there is a problem during the authentication
+     * @throws Reply530Exception if there is a problem during the authentication
      * @throws Reply502Exception
      */
     public NextCommandReply setAccount(String account)
             throws Reply421Exception, Reply530Exception, Reply502Exception;
 
     /**
-     *
      * @return the CommandExecutor associated with the current Auth
      */
     public CommandExecutorInterface getCommandExecutor();

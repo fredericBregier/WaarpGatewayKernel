@@ -47,11 +47,9 @@ import java.util.Set;
 import java.util.TimeZone;
 
 /**
- *
  * Utility class to write external file with cache enable properties
  *
  * @author Frederic Bregier
- *
  */
 public class HttpWriteCacheEnable {
     /**

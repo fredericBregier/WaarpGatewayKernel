@@ -30,7 +30,6 @@ import java.util.LinkedHashMap;
 
 /**
  * @author Frederic Bregier
- *
  */
 public class HttpPage {
     /**
@@ -55,8 +54,8 @@ public class HttpPage {
     private String classname;
     private LinkedHashMap<String, AbstractHttpField> fields;
     private HttpBusinessFactory httpBusinessFactory;
+
     /**
-     *
      * @param pagename
      * @param fileform
      * @param header
@@ -69,6 +68,7 @@ public class HttpPage {
      * @param errorpage
      * @param classname
      * @param fields
+     *
      * @throws ClassNotFoundException
      * @throws IllegalAccessException
      * @throws InstantiationException
@@ -101,8 +101,8 @@ public class HttpPage {
     /**
      * Called at the beginning of every request to get the current HttpBusinessFactory to use.
      *
-     * @param remoteAddress
-     *            the remote socket address in use
+     * @param remoteAddress the remote socket address in use
+     *
      * @return AbstractHttpBusinessRequest to use during the request
      */
     public AbstractHttpBusinessRequest newRequest(SocketAddress remoteAddress) {
@@ -131,9 +131,10 @@ public class HttpPage {
     }
 
     /**
-     *
      * @param reference
+     *
      * @return the Html results for all pages except Get (result of a download)
+     *
      * @throws HttpIncorrectRequestException
      */
     public String getHtmlPage(AbstractHttpBusinessRequest reference)
@@ -271,13 +272,14 @@ public class HttpPage {
 
     /**
      * Set the value to the field according to fieldname.
-     *
+     * <p>
      * If the field is not registered, the field is ignored.
      *
      * @param reference
      * @param fieldname
      * @param value
      * @param position
+     *
      * @throws HttpIncorrectRequestException
      */
     public void setValue(AbstractHttpBusinessRequest reference, String fieldname, String value,
@@ -304,11 +306,12 @@ public class HttpPage {
 
     /**
      * Set the value to the field according to fieldname.
-     *
+     * <p>
      * If the field is not registered, the field is ignored.
      *
      * @param reference
      * @param fieldname
+     *
      * @throws HttpIncorrectRequestException
      */
     public void setValue(AbstractHttpBusinessRequest reference, String fieldname,
@@ -328,8 +331,8 @@ public class HttpPage {
     }
 
     /**
-     *
      * @param reference
+     *
      * @return True if the request is fully valid
      */
     public boolean isRequestValid(AbstractHttpBusinessRequest reference) {
@@ -349,6 +352,7 @@ public class HttpPage {
      * Convenient method to get the fields list
      *
      * @param reference
+     *
      * @return the fields list from the current AbstractHttpBusinessRequest
      */
     public LinkedHashMap<String, AbstractHttpField> getFieldsForRequest(
@@ -361,6 +365,7 @@ public class HttpPage {
      *
      * @param reference
      * @param fieldname
+     *
      * @return the String value
      */
     public String getValue(AbstractHttpBusinessRequest reference, String fieldname) {
@@ -376,6 +381,7 @@ public class HttpPage {
      *
      * @param reference
      * @param fieldname
+     *
      * @return the FileUpload value
      */
     public FileUpload getFileUpload(AbstractHttpBusinessRequest reference, String fieldname) {
@@ -391,6 +397,7 @@ public class HttpPage {
      *
      * @param reference
      * @param fieldname
+     *
      * @return the AbstractHttpField value
      */
     public AbstractHttpField getField(AbstractHttpBusinessRequest reference, String fieldname) {

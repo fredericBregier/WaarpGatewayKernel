@@ -29,7 +29,6 @@ import java.util.Map.Entry;
  * General RestConfiguration model
  *
  * @author "Frederic Bregier"
- *
  */
 public class RestConfiguration {
     /**
@@ -58,7 +57,6 @@ public class RestConfiguration {
     public boolean REST_SIGNATURE = true;
     /**
      * Key for signature in SHA-256
-     *
      */
     public HmacSha256 hmacSha256 = null;
     /**
@@ -85,6 +83,7 @@ public class RestConfiguration {
      * Set Key from file
      *
      * @param authentKey
+     *
      * @throws CryptoException
      * @throws IOException
      */

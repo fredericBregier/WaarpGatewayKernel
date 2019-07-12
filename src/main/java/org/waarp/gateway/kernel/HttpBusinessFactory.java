@@ -30,7 +30,6 @@ import java.util.LinkedHashMap;
 
 /**
  * @author Frederic Bregier
- *
  */
 public abstract class HttpBusinessFactory {
     public static final HttpDataFactory factory = new DefaultHttpDataFactory(
@@ -56,10 +55,10 @@ public abstract class HttpBusinessFactory {
     }
 
     /**
-     *
      * @param pages
      * @param title
      * @param clasz
+     *
      * @return True if the default error pages are correctly added
      */
     public static boolean addDefaultErrorPages(HttpPageHandler pages, String title, Class<?> clasz) {
@@ -176,15 +175,13 @@ public abstract class HttpBusinessFactory {
 
     /**
      * It returns the AbstractHttpBusinessRequest to use during a new request.
-     *
+     * <p>
      * Note that fields given in parameter should be updated according to their values if needed.
      *
-     * @param remoteAddress
-     *            the remote SocketAddress in use
-     * @param fields
-     *            the fields linked hashmap (to preserver order) to set for the new request
-     * @param page
-     *            source HttpPage
+     * @param remoteAddress the remote SocketAddress in use
+     * @param fields the fields linked hashmap (to preserver order) to set for the new request
+     * @param page source HttpPage
+     *
      * @return the AbstractHttpBusinessRequest to use during a new request
      */
     public abstract AbstractHttpBusinessRequest getNewHttpBusinessRequest(

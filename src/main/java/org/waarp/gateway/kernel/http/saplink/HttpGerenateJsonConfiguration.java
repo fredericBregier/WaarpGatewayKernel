@@ -22,7 +22,6 @@ import org.waarp.gateway.kernel.exception.HttpIncorrectRequestException;
 
 /**
  * @author "Frederic Bregier"
- *
  */
 public class HttpGerenateJsonConfiguration {
 

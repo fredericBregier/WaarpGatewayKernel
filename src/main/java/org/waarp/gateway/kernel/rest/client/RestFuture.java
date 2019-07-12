@@ -23,7 +23,6 @@ import org.waarp.gateway.kernel.rest.RestArgument;
  * WaarpFuture for Rest interface
  *
  * @author "Frederic Bregier"
- *
  */
 public class RestFuture extends WaarpFuture {
 
@@ -59,8 +58,7 @@ public class RestFuture extends WaarpFuture {
     }
 
     /**
-     * @param otherObject
-     *            the otherObject to set
+     * @param otherObject the otherObject to set
      */
     public void setOtherObject(Object otherObject) {
         this.otherObject = otherObject;

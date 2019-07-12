@@ -77,7 +77,6 @@ import java.util.Set;
 
 /**
  * @author "Frederic Bregier"
- *
  */
 public abstract class HttpRequestHandler extends SimpleChannelInboundHandler<HttpObject> {
     /**
@@ -115,7 +114,7 @@ public abstract class HttpRequestHandler extends SimpleChannelInboundHandler<Htt
 
     /**
      * Clean method
-     *
+     * <p>
      * Override if needed
      */
     protected void clean() {
@@ -135,7 +134,7 @@ public abstract class HttpRequestHandler extends SimpleChannelInboundHandler<Htt
 
     /**
      * Called at the beginning of every new request
-     *
+     * <p>
      * Override if needed
      */
     protected void initialize() {
@@ -352,6 +351,7 @@ public abstract class HttpRequestHandler extends SimpleChannelInboundHandler<Htt
      *
      * @param ctx
      * @param message
+     *
      * @throws HttpIncorrectRequestException
      */
     protected void prepareError(ChannelHandlerContext ctx, String message)
@@ -369,6 +369,7 @@ public abstract class HttpRequestHandler extends SimpleChannelInboundHandler<Htt
      * Instantiate the page and the businessRequest handler
      *
      * @param ctx
+     *
      * @return True if initialized
      */
     protected boolean setErrorPage(ChannelHandlerContext ctx) {
@@ -431,6 +432,7 @@ public abstract class HttpRequestHandler extends SimpleChannelInboundHandler<Htt
      * Write a simple page from current httpPage and businessRequest
      *
      * @param ctx
+     *
      * @throws HttpIncorrectRequestException
      */
     protected void writeSimplePage(ChannelHandlerContext ctx) throws HttpIncorrectRequestException {
@@ -472,13 +474,14 @@ public abstract class HttpRequestHandler extends SimpleChannelInboundHandler<Htt
      * Could be used for other method (as validation of an authent cookie)
      *
      * @param cookie
+     *
      * @return True if this cookie is valid
      */
     protected abstract boolean isCookieValid(Cookie cookie);
 
     /**
      * Method to add specific Cookies from business definition
-     *
+     * <p>
      * Override if needed
      *
      * @param response
@@ -531,8 +534,8 @@ public abstract class HttpRequestHandler extends SimpleChannelInboundHandler<Htt
     }
 
     /**
-     * @param buf
-     *            might be null
+     * @param buf might be null
+     *
      * @return the Http Response according to the status
      */
     protected FullHttpResponse getResponse(ByteBuf buf) {
@@ -576,7 +579,6 @@ public abstract class HttpRequestHandler extends SimpleChannelInboundHandler<Htt
     }
 
     /**
-     *
      * @return the filename used for this request
      */
     protected abstract String getFilename();
@@ -585,6 +587,7 @@ public abstract class HttpRequestHandler extends SimpleChannelInboundHandler<Htt
      * Called before simple Page is called (Menu or HTML)
      *
      * @param ctx
+     *
      * @throws HttpIncorrectRequestException
      */
     protected abstract void beforeSimplePage(ChannelHandlerContext ctx) throws HttpIncorrectRequestException;
@@ -593,6 +596,7 @@ public abstract class HttpRequestHandler extends SimpleChannelInboundHandler<Htt
      * Method that will use the result and send back the result
      *
      * @param ctx
+     *
      * @throws HttpIncorrectRequestException
      */
     protected void finalData(ChannelHandlerContext ctx) throws HttpIncorrectRequestException {
@@ -650,13 +654,11 @@ public abstract class HttpRequestHandler extends SimpleChannelInboundHandler<Htt
     protected abstract void finalDelete(ChannelHandlerContext ctx) throws HttpIncorrectRequestException;
 
     /**
-     * Method that will use the uploaded file and send back the result <br>
-     * (this method must send back the answer using for instance a ChunkedInput handler and should
-     * try to call clean(), but taking into consideration that it will erase all data, so it must be
-     * ensured that all data are sent through the wire before calling it. Note however that when the
-     * connection is closed or when a new request on the same connection occurs, the clean method is
-     * automatically called. The usage of a HttpCleanChannelFutureListener on the last write might
-     * be useful.)
+     * Method that will use the uploaded file and send back the result <br> (this method must send back the answer using
+     * for instance a ChunkedInput handler and should try to call clean(), but taking into consideration that it will
+     * erase all data, so it must be ensured that all data are sent through the wire before calling it. Note however
+     * that when the connection is closed or when a new request on the same connection occurs, the clean method is
+     * automatically called. The usage of a HttpCleanChannelFutureListener on the last write might be useful.)
      *
      * @param ctx
      */
@@ -687,6 +689,7 @@ public abstract class HttpRequestHandler extends SimpleChannelInboundHandler<Htt
      * Validate all data as they should be all received (done before the isRequestValid)
      *
      * @param ctx
+     *
      * @throws HttpIncorrectRequestException
      */
     public abstract void businessValidRequestAfterAllDataReceived(ChannelHandlerContext ctx)
@@ -716,6 +719,7 @@ public abstract class HttpRequestHandler extends SimpleChannelInboundHandler<Htt
      * Method that get post data
      *
      * @param ctx
+     *
      * @throws HttpIncorrectRequestException
      */
     protected void post(ChannelHandlerContext ctx) throws HttpIncorrectRequestException {
@@ -745,6 +749,7 @@ public abstract class HttpRequestHandler extends SimpleChannelInboundHandler<Htt
      *
      * @param ctx
      * @param chunk
+     *
      * @throws HttpIncorrectRequestException
      */
     protected void postChunk(ChannelHandlerContext ctx, HttpContent chunk) throws HttpIncorrectRequestException {
@@ -793,6 +798,7 @@ public abstract class HttpRequestHandler extends SimpleChannelInboundHandler<Htt
      * Read all InterfaceHttpData from finished transfer
      *
      * @param ctx
+     *
      * @throws HttpIncorrectRequestException
      */
     protected void readHttpDataAllReceive(ChannelHandlerContext ctx) throws HttpIncorrectRequestException {
@@ -814,6 +820,7 @@ public abstract class HttpRequestHandler extends SimpleChannelInboundHandler<Htt
      * Read request by chunk and getting values from chunk to chunk
      *
      * @param ctx
+     *
      * @throws HttpIncorrectRequestException
      */
     protected void readHttpDataChunkByChunk(ChannelHandlerContext ctx) throws HttpIncorrectRequestException {
@@ -836,6 +843,7 @@ public abstract class HttpRequestHandler extends SimpleChannelInboundHandler<Htt
      *
      * @param data
      * @param ctx
+     *
      * @throws HttpIncorrectRequestException
      */
     protected void readHttpData(InterfaceHttpData data, ChannelHandlerContext ctx)

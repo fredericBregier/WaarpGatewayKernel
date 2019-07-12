@@ -50,19 +50,14 @@ import java.util.Set;
 import java.util.TreeMap;
 
 /**
- * Rest object that contains all arguments or answers once all tasks are over:</br>
- * - ARG_HASBODY, ARG_METHOD, ARG_PATH, ARG_BASEPATH, ARGS_SUBPATH, ARG_X_AUTH_KEY, ARG_X_AUTH_USER, ARG_X_AUTH_TIMESTAMP,
- * ARG_X_AUTH_ROLE: root elements (query only)</br>
- * - ARG_METHOD, ARG_PATH, ARG_BASEPATH, ARGS_SUBPATH, ARG_X_AUTH_USER, JSON_STATUSMESSAGE, JSON_STATUSCODE, JSON_COMMAND: root
- * elements (answer only)</br>
- * - ARGS_URI: uri elements (query only)</br>
- * - ARGS_HEADER: header elements (query only)</br>
- * - ARG_COOKIE: cookie elements</br>
- * - ARGS_BODY: body elements (query only)</br>
- * - ARGS_ANSWER: answer part (answer only)</br>
+ * Rest object that contains all arguments or answers once all tasks are over:</br> - ARG_HASBODY, ARG_METHOD, ARG_PATH,
+ * ARG_BASEPATH, ARGS_SUBPATH, ARG_X_AUTH_KEY, ARG_X_AUTH_USER, ARG_X_AUTH_TIMESTAMP, ARG_X_AUTH_ROLE: root elements
+ * (query only)</br> - ARG_METHOD, ARG_PATH, ARG_BASEPATH, ARGS_SUBPATH, ARG_X_AUTH_USER, JSON_STATUSMESSAGE,
+ * JSON_STATUSCODE, JSON_COMMAND: root elements (answer only)</br> - ARGS_URI: uri elements (query only)</br> -
+ * ARGS_HEADER: header elements (query only)</br> - ARG_COOKIE: cookie elements</br> - ARGS_BODY: body elements (query
+ * only)</br> - ARGS_ANSWER: answer part (answer only)</br>
  *
  * @author "Frederic Bregier"
- *
  */
 public class RestArgument {
     /**
@@ -74,8 +69,7 @@ public class RestArgument {
     /**
      * Create a RestArgument
      *
-     * @param emptyArgument
-     *            might be null, but might be also already initialized with some values
+     * @param emptyArgument might be null, but might be also already initialized with some values
      */
     public RestArgument(ObjectNode emptyArgument) {
         if (emptyArgument == null) {
@@ -92,16 +86,14 @@ public class RestArgument {
     /**
      * The encoder is completed with extra necessary URI part containing ARG_X_AUTH_TIMESTAMP & ARG_X_AUTH_KEY
      *
-     * @param hmacSha256
-     *            SHA-256 key to create the signature
+     * @param hmacSha256 SHA-256 key to create the signature
      * @param encoder
-     * @param user
-     *            might be null
-     * @param extraKey
-     *            might be null
+     * @param user might be null
+     * @param extraKey might be null
+     *
      * @return an array of 2 value in order ARG_X_AUTH_TIMESTAMP and ARG_X_AUTH_KEY
-     * @throws HttpInvalidAuthenticationException
-     *             if the computation of the authentication failed
+     *
+     * @throws HttpInvalidAuthenticationException if the computation of the authentication failed
      */
     public static String[] getBaseAuthent(HmacSha256 hmacSha256, QueryStringEncoder encoder, String user,
                                           String extraKey) throws HttpInvalidAuthenticationException {
@@ -134,12 +126,11 @@ public class RestArgument {
     }
 
     /**
-     * @param hmacSha256
-     *            SHA-256 key to create the signature
-     * @param extraKey
-     *            might be null
+     * @param hmacSha256 SHA-256 key to create the signature
+     * @param extraKey might be null
      * @param treeMap
      * @param argPath
+     *
      * @throws HttpInvalidAuthenticationException
      */
     protected static String computeKey(HmacSha256 hmacSha256, String extraKey, TreeMap<String, String> treeMap,
@@ -323,7 +314,6 @@ public class RestArgument {
     }
 
     /**
-     *
      * @return the full Path of the URI
      */
     public String getUri() {
@@ -331,7 +321,6 @@ public class RestArgument {
     }
 
     /**
-     *
      * @return the base Path of the URI (first item between '/')
      */
     public String getBaseUri() {
@@ -339,7 +328,6 @@ public class RestArgument {
     }
 
     /**
-     *
      * @return An iterator of JsonNode, which values can be retrieved by item.asText()
      */
     public Iterator<JsonNode> getSubUri() {
@@ -392,7 +380,6 @@ public class RestArgument {
     }
 
     /**
-     *
      * @return The ObjectNode containing all couples key/value
      */
     public ObjectNode getUriArgs() {
@@ -404,7 +391,6 @@ public class RestArgument {
     }
 
     /**
-     *
      * @return the method or null
      */
     public METHOD getMethod() {
@@ -420,7 +406,6 @@ public class RestArgument {
     }
 
     /**
-     *
      * @return The ObjectNode containing all couples key/value
      */
     public ObjectNode getHeaderArgs() {
@@ -515,7 +500,6 @@ public class RestArgument {
     }
 
     /**
-     *
      * @return The ObjectNode containing all couples key/value
      */
     public ObjectNode getCookieArgs() {
@@ -528,7 +512,6 @@ public class RestArgument {
 
     /**
      * set values from Cookies into arguments.path(ARGS_COOKIE)
-     *
      */
     public void setCookieArgs(String cookieString) {
         Set<Cookie> cookies;
@@ -546,7 +529,6 @@ public class RestArgument {
     }
 
     /**
-     *
      * @return The ObjectNode containing all couples key/value
      */
     public ObjectNode getBody() {
@@ -558,7 +540,6 @@ public class RestArgument {
     }
 
     /**
-     *
      * @return The ObjectNode containing all couples key/value
      */
     public ObjectNode getAnswer() {
@@ -579,7 +560,6 @@ public class RestArgument {
     }
 
     /**
-     *
      * @return the Http Status code
      */
     public int getStatusCode() {
@@ -587,7 +567,6 @@ public class RestArgument {
     }
 
     /**
-     *
      * @return the Http Status message according to the Http Status code
      */
     public String getStatusMessage() {
@@ -595,7 +574,6 @@ public class RestArgument {
     }
 
     /**
-     *
      * @return the detail information on error (mainly)
      */
     public String getDetail() {
@@ -607,7 +585,6 @@ public class RestArgument {
     }
 
     /**
-     *
      * @return the COMMAND field, to be transformed either into COMMAND_TYPE or ACTIONS_TYPE
      */
     public String getCommandField() {
@@ -615,7 +592,6 @@ public class RestArgument {
     }
 
     /**
-     *
      * @return the COMMAND_TYPE but might be null if not found or if of ACTIONS_TYPE
      */
     public COMMAND_TYPE getCommand() {
@@ -640,9 +616,7 @@ public class RestArgument {
     }
 
     /**
-     *
-     * @param filter
-     *            the filter used in multi get
+     * @param filter the filter used in multi get
      */
     public void addFilter(ObjectNode filter) {
         if (filter == null) {
@@ -652,7 +626,6 @@ public class RestArgument {
     }
 
     /**
-     *
      * @return the filter used in multi get
      */
     public ObjectNode getFilter() {
@@ -660,7 +633,6 @@ public class RestArgument {
     }
 
     /**
-     *
      * @return the array of results (in DataModel multi get)
      */
     public ArrayNode getResults() {
@@ -672,20 +644,15 @@ public class RestArgument {
     }
 
     /**
-     *
-     * @param result
-     *            added to the array of results (in DataModel multi get)
+     * @param result added to the array of results (in DataModel multi get)
      */
     public void addResult(ObjectNode result) {
         getResults().add(result);
     }
 
     /**
-     *
-     * @param count
-     *            added to answer if > 0
-     * @param limit
-     *            added to answer
+     * @param count added to answer if > 0
+     * @param limit added to answer
      */
     public void addCountLimit(long count, long limit) {
         ObjectNode node = getAnswer();
@@ -696,7 +663,6 @@ public class RestArgument {
     }
 
     /**
-     *
      * @return the count of element (-1 if not found)
      */
     public long getCount() {
@@ -744,6 +710,7 @@ public class RestArgument {
      * Check Time only (no signature)
      *
      * @param maxInterval
+     *
      * @throws HttpInvalidAuthenticationException
      */
     public void checkTime(long maxInterval) throws HttpInvalidAuthenticationException {
@@ -764,22 +731,17 @@ public class RestArgument {
     }
 
     /**
-     * This implementation of authentication is as follow: if X_AUTH is included in the URI or Header<br>
-     * 0) Check that timestamp is correct (|curtime - timestamp| < maxinterval) from ARG_X_AUTH_TIMESTAMP, if maxInterval is 0,
-     * not mandatory<br>
-     * 1) Get all URI args (except ARG_X_AUTH_KEY itself, but including timestamp), lowered case, in alphabetic order<br>
-     * 2) Add an extra Key if not null (from ARG_X_AUTH_INTERNALKEY)<br>
-     * 3) Compute an hash (SHA-1 or SHA-256)<br>
-     * 4) Compare this hash with ARG_X_AUTH_KEY<br>
+     * This implementation of authentication is as follow: if X_AUTH is included in the URI or Header<br> 0) Check that
+     * timestamp is correct (|curtime - timestamp| < maxinterval) from ARG_X_AUTH_TIMESTAMP, if maxInterval is 0, not
+     * mandatory<br> 1) Get all URI args (except ARG_X_AUTH_KEY itself, but including timestamp), lowered case, in
+     * alphabetic order<br> 2) Add an extra Key if not null (from ARG_X_AUTH_INTERNALKEY)<br> 3) Compute an hash (SHA-1
+     * or SHA-256)<br> 4) Compare this hash with ARG_X_AUTH_KEY<br>
      *
-     * @param hmacSha256
-     *            SHA-256 key to create the signature
-     * @param extraKey
-     *            will be added as ARG_X_AUTH_INTERNALKEY might be null
-     * @param maxInterval
-     *            ARG_X_AUTH_TIMESTAMP will be tested if value > 0
-     * @throws HttpInvalidAuthenticationException
-     *             if the authentication failed
+     * @param hmacSha256 SHA-256 key to create the signature
+     * @param extraKey will be added as ARG_X_AUTH_INTERNALKEY might be null
+     * @param maxInterval ARG_X_AUTH_TIMESTAMP will be tested if value > 0
+     *
+     * @throws HttpInvalidAuthenticationException if the authentication failed
      */
     public void checkBaseAuthent(HmacSha256 hmacSha256, String extraKey, long maxInterval)
             throws HttpInvalidAuthenticationException {
@@ -887,8 +849,8 @@ public class RestArgument {
          */
         ARG_BASEPATH("base"),
         /**
-         * arguments.path(ARGS_SUBPATH) main entry for SUB-PATH arguments<br>
-         * arguments.path(ARGS_SUBPATH).elements() for an iterator or .get(x) for xth SUB-PATH argument
+         * arguments.path(ARGS_SUBPATH) main entry for SUB-PATH arguments<br> arguments.path(ARGS_SUBPATH).elements()
+         * for an iterator or .get(x) for xth SUB-PATH argument
          */
         ARGS_SUBPATH("subpath"),
         /**

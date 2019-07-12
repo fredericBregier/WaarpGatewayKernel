@@ -77,7 +77,6 @@ import java.util.Map.Entry;
  * Handler for HTTP Rest support
  *
  * @author Frederic Bregier
- *
  */
 public abstract class HttpRestHandler extends SimpleChannelInboundHandler<HttpObject> {
     public static final HttpDataFactory factory = new DefaultHttpDataFactory(
@@ -124,6 +123,7 @@ public abstract class HttpRestHandler extends SimpleChannelInboundHandler<HttpOb
      */
     protected ByteBuf cumulativeBody = null;
     private volatile boolean willClose = false;
+
     public HttpRestHandler(RestConfiguration config) {
         this.restConfiguration = config;
         rootHandler = new RootOptionsRestMethodHandler(config);
@@ -132,8 +132,8 @@ public abstract class HttpRestHandler extends SimpleChannelInboundHandler<HttpOb
     /**
      * Initialize the Disk support
      *
-     * @param tempPath
-     *            system temp directory
+     * @param tempPath system temp directory
+     *
      * @throws IOException
      * @throws CryptoException
      */
@@ -161,7 +161,7 @@ public abstract class HttpRestHandler extends SimpleChannelInboundHandler<HttpOb
 
     /**
      * Clean method
-     *
+     * <p>
      * Override if needed
      */
     protected void clean() {
@@ -188,7 +188,7 @@ public abstract class HttpRestHandler extends SimpleChannelInboundHandler<HttpOb
 
     /**
      * Called at the beginning of every new request
-     *
+     * <p>
      * Override if needed
      */
     protected void initialize() {
@@ -202,7 +202,6 @@ public abstract class HttpRestHandler extends SimpleChannelInboundHandler<HttpOb
     }
 
     /**
-     *
      * @return the DbSession associated with the current request (might be Admin dbSession if none)
      */
     public DbSession getDbSession() {
@@ -210,12 +209,11 @@ public abstract class HttpRestHandler extends SimpleChannelInboundHandler<HttpOb
     }
 
     /**
-     * To be used for instance to check correctness of connection<br>
-     * Note that ARG_METHOD is only set from current request.
-     * It might be also set from URI or HEADER
-     * and therefore should be done in this method.
+     * To be used for instance to check correctness of connection<br> Note that ARG_METHOD is only set from current
+     * request. It might be also set from URI or HEADER and therefore should be done in this method.
      *
      * @param ctx
+     *
      * @throws HttpInvalidAuthenticationException
      */
     protected abstract void checkConnection(ChannelHandlerContext ctx) throws HttpInvalidAuthenticationException;
@@ -244,6 +242,7 @@ public abstract class HttpRestHandler extends SimpleChannelInboundHandler<HttpOb
      * Could be overwritten if necessary
      *
      * @return RestMethodHandler associated with the current context
+     *
      * @throws HttpIncorrectRequestException
      * @throws HttpMethodNotAllowedRequestException
      * @throws HttpForbiddenRequestException
@@ -449,6 +448,7 @@ public abstract class HttpRestHandler extends SimpleChannelInboundHandler<HttpOb
      * Read one Data
      *
      * @param data
+     *
      * @throws HttpIncorrectRequestException
      */
     protected void readHttpData(InterfaceHttpData data)
@@ -499,6 +499,7 @@ public abstract class HttpRestHandler extends SimpleChannelInboundHandler<HttpOb
 
     /**
      * @param content
+     *
      * @return the Http Response according to the status and the content if not null (setting the CONTENT_LENGTH)
      */
     public FullHttpResponse getResponse(ByteBuf content) {
@@ -546,6 +547,7 @@ public abstract class HttpRestHandler extends SimpleChannelInboundHandler<HttpOb
      *
      * @param ctx
      * @param chunk
+     *
      * @throws HttpIncorrectRequestException
      * @throws HttpInvalidAuthenticationException
      * @throws HttpNotFoundRequestException
@@ -605,6 +607,7 @@ public abstract class HttpRestHandler extends SimpleChannelInboundHandler<HttpOb
      * Get Body args as JSON body
      *
      * @param data
+     *
      * @throws HttpIncorrectRequestException
      */
     protected Object getBodyJsonArgs(ByteBuf data) throws HttpIncorrectRequestException {
@@ -675,8 +678,7 @@ public abstract class HttpRestHandler extends SimpleChannelInboundHandler<HttpOb
     }
 
     /**
-     * @param status
-     *            the status to set
+     * @param status the status to set
      */
     public void setStatus(HttpResponseStatus status) {
         this.status = status;
@@ -697,8 +699,7 @@ public abstract class HttpRestHandler extends SimpleChannelInboundHandler<HttpOb
     }
 
     /**
-     * @param willClose
-     *            the willClose to set
+     * @param willClose the willClose to set
      */
     public void setWillClose(boolean willClose) {
         this.willClose = willClose;
@@ -707,73 +708,65 @@ public abstract class HttpRestHandler extends SimpleChannelInboundHandler<HttpOb
     public static enum METHOD {
         /**
          * REST: Standard GET item
-         *
-         * The GET method means retrieve whatever information (in the form of an entity)
-         * is identified by the Request-URI. If the Request-URI refers to a
-         * data-producing process, it is the produced data which shall be returned as
-         * the entity in the response and not the source text of the process, unless
-         * that text happens to be the output of the process.
+         * <p>
+         * The GET method means retrieve whatever information (in the form of an entity) is identified by the
+         * Request-URI. If the Request-URI refers to a data-producing process, it is the produced data which shall be
+         * returned as the entity in the response and not the source text of the process, unless that text happens to be
+         * the output of the process.
          */
         GET(HttpMethod.GET),
         /**
          * REST: Update existing item
-         *
-         * The PUT method requests that the enclosed entity be stored under the
-         * supplied Request-URI.
+         * <p>
+         * The PUT method requests that the enclosed entity be stored under the supplied Request-URI.
          */
         PUT(HttpMethod.PUT),
         /**
          * REST: Create a new item
-         *
-         * The POST method is used to request that the origin server accept the
-         * entity enclosed in the request as a new subordinate of the resource
-         * identified by the Request-URI in the Request-Line.
+         * <p>
+         * The POST method is used to request that the origin server accept the entity enclosed in the request as a new
+         * subordinate of the resource identified by the Request-URI in the Request-Line.
          */
         POST(HttpMethod.POST),
         /**
          * REST: Delete existing item
-         *
-         * The DELETE method requests that the origin server delete the resource
-         * identified by the Request-URI.
+         * <p>
+         * The DELETE method requests that the origin server delete the resource identified by the Request-URI.
          */
         DELETE(HttpMethod.DELETE),
         /**
          * REST: what options are supported for the URI
-         *
-         * The OPTIONS method represents a request for information about
-         * the communication options available on the request/response chain
-         * identified by the Request-URI. This method allows the client to
-         * determine the options and/or requirements associated with a resource,
-         * or the capabilities of a server, without implying a resource action
-         * or initiating a resource retrieval.
+         * <p>
+         * The OPTIONS method represents a request for information about the communication options available on the
+         * request/response chain identified by the Request-URI. This method allows the client to determine the options
+         * and/or requirements associated with a resource, or the capabilities of a server, without implying a resource
+         * action or initiating a resource retrieval.
          */
         OPTIONS(HttpMethod.OPTIONS),
         /**
          * REST: as GET but no BODY (existence ? metadata ?)
-         *
-         * The HEAD method is identical to GET except that the server MUST NOT
-         * return a message-body in the response.
+         * <p>
+         * The HEAD method is identical to GET except that the server MUST NOT return a message-body in the response.
          */
         HEAD(HttpMethod.HEAD),
         /**
          * REST: should not be used, use POST instead
-         *
-         * The PATCH method requests that a set of changes described in the
-         * request entity be applied to the resource identified by the Request-URI.
+         * <p>
+         * The PATCH method requests that a set of changes described in the request entity be applied to the resource
+         * identified by the Request-URI.
          */
         PATCH(HttpMethod.PATCH),
         /**
          * REST: unknown usage
-         *
-         * The TRACE method is used to invoke a remote, application-layer
-         * loop-back of the request message.
+         * <p>
+         * The TRACE method is used to invoke a remote, application-layer loop-back of the request message.
          */
         TRACE(HttpMethod.TRACE),
         /**
          * REST: unknown
-         *
-         * This specification reserves the method name CONNECT for use with
-         * a proxy that can dynamically switch to being a tunnel
+         * <p>
+         * This specification reserves the method name CONNECT for use with a proxy that can dynamically switch to being
+         * a tunnel
          */
         CONNECT(HttpMethod.CONNECT);
 

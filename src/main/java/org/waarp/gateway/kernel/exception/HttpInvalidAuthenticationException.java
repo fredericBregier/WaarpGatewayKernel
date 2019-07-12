@@ -18,7 +18,6 @@ package org.waarp.gateway.kernel.exception;
 
 /**
  * @author "Frederic Bregier"
- *
  */
 public class HttpInvalidAuthenticationException extends Exception {
 

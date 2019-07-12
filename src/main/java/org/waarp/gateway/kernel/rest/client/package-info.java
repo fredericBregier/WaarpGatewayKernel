@@ -17,6 +17,9 @@
  * Package for REST Http client support
  *
  * @author "Frederic Bregier"
+ * <p>
+ * Package for REST Http client support
+ * @author "Frederic Bregier"
  */
 /**
  * Package for REST Http client support

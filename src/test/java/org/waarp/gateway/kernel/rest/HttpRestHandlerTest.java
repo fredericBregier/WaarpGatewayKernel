@@ -32,7 +32,6 @@ import java.util.List;
 
 /**
  * @author "Frederic Bregier"
- *
  */
 public class HttpRestHandlerTest extends HttpRestHandler {
     private static final WaarpLogger logger = WaarpLoggerFactory.getLogger(HttpRestHandlerTest.class);

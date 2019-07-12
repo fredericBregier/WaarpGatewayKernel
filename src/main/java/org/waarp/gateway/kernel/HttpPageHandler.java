@@ -26,7 +26,6 @@ import java.util.HashMap;
 
 /**
  * @author "Frederic Bregier"
- *
  */
 public class HttpPageHandler {
     /*
@@ -45,8 +44,8 @@ public class HttpPageHandler {
     }
 
     /**
-     *
      * @param code
+     *
      * @return an HttpPage according to the error code (400, 404, 500, ...)
      */
     public HttpPage getHttpPage(int code) {
@@ -55,11 +54,12 @@ public class HttpPageHandler {
     }
 
     /**
-     *
      * @param uri
      * @param method
      * @param session
+     *
      * @return the associated HttpPage if any
+     *
      * @throws HttpIncorrectRequestException
      */
     public HttpPage getHttpPage(String uri, String method, HttpSession session)

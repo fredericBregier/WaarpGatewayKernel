@@ -15,6 +15,7 @@
  * <http://www.gnu.org/licenses/>.
  *
  * @author frederic bregier
+ * @author frederic bregier
  */
 /**
  * @author frederic bregier

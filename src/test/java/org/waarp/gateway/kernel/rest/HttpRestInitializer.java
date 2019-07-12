@@ -27,7 +27,6 @@ import org.waarp.common.utility.WaarpThreadFactory;
 
 /**
  * @author "Frederic Bregier"
- *
  */
 public class HttpRestInitializer extends ChannelInitializer<SocketChannel> {
     private static final EventExecutorGroup executor = new NioEventLoopGroup(10, new WaarpThreadFactory("Handler"));

@@ -30,7 +30,6 @@ import org.waarp.gateway.kernel.exception.HttpIncorrectRetrieveException;
 
 /**
  * @author Frederic Bregier
- *
  */
 public class CommonFileChunkedInput implements ChunkedInput<ByteBuf> {
 
@@ -42,6 +41,7 @@ public class CommonFileChunkedInput implements ChunkedInput<ByteBuf> {
 
     /**
      * @param document
+     *
      * @throws HttpIncorrectRetrieveException
      */
     public CommonFileChunkedInput(FileInterface document)

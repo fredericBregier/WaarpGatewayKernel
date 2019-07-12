@@ -24,12 +24,11 @@ import org.waarp.common.file.SessionInterface;
 
 /**
  * Allow all default implementation
- *
- * If an authentication is needed, then it will have to use an implementation compatible with the
- * Security of the IT that needs it.
+ * <p>
+ * If an authentication is needed, then it will have to use an implementation compatible with the Security of the IT
+ * that needs it.
  *
  * @author Frederic Bregier
- *
  */
 public class DefaultHttpAuth implements HttpAuthInterface {
     /**

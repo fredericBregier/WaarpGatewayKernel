@@ -20,14 +20,13 @@ import org.waarp.common.file.FileParameterInterface;
 
 /**
  * @author Frederic Bregier
- *
  */
 public class FilesystemBasedFileParameterImpl implements FileParameterInterface {
     public static FileParameterInterface fileParameterInterface = new FilesystemBasedFileParameterImpl();
 
     /**
-     * Should a file MD5 SHA1 be computed using NIO. In low usage, direct access is faster. In high
-     * usage, it might be better to use Nio.
+     * Should a file MD5 SHA1 be computed using NIO. In low usage, direct access is faster. In high usage, it might be
+     * better to use Nio.
      */
     public static boolean useNio = false;
 

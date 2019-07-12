@@ -24,7 +24,6 @@ import org.waarp.common.file.filesystembased.FilesystemBasedDirImpl;
 
 /**
  * @author "Frederic Bregier"
- *
  */
 public class CommonDirImpl extends FilesystemBasedDirImpl {
 

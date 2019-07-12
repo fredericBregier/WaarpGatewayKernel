@@ -60,7 +60,6 @@ import java.util.Map.Entry;
  * Http Rest Client helper
  *
  * @author "Frederic Bregier"
- *
  */
 public class HttpRestClientHelper {
     private static WaarpLogger logger = null;
@@ -77,14 +76,10 @@ public class HttpRestClientHelper {
     private String baseUri = "/";
 
     /**
-     * @param baseUri
-     *            base of all URI, in general simply "/" (default if null)
-     * @param nbclient
-     *            max number of client connected at once
-     * @param timeout
-     *            timeout used in connection
-     * @param Initializer
-     *            the associated client pipeline factory
+     * @param baseUri base of all URI, in general simply "/" (default if null)
+     * @param nbclient max number of client connected at once
+     * @param timeout timeout used in connection
+     * @param Initializer the associated client pipeline factory
      */
     public HttpRestClientHelper(String baseUri, int nbclient, long timeout,
                                 ChannelInitializer<SocketChannel> Initializer) {
@@ -122,9 +117,7 @@ public class HttpRestClientHelper {
     }
 
     /**
-     *
-     * @param args
-     *            as uri (http://host:port/uri method user pwd sign=path|nosign [json])
+     * @param args as uri (http://host:port/uri method user pwd sign=path|nosign [json])
      */
     public static void main(String[] args) {
         WaarpLoggerFactory.setDefaultFactory(new WaarpSlf4JLoggerFactory(null));
@@ -208,6 +201,7 @@ public class HttpRestClientHelper {
      *
      * @param host
      * @param port
+     *
      * @return the channel if connected or Null if not
      */
     public Channel getChannel(String host, int port) {
@@ -225,24 +219,17 @@ public class HttpRestClientHelper {
     /**
      * Send an HTTP query using the channel for target, using signature
      *
-     * @param hmacSha256
-     *            SHA-256 key to create the signature
-     * @param channel
-     *            target of the query
-     * @param method
-     *            HttpMethod to use
-     * @param host
-     *            target of the query (shall be the same as for the channel)
-     * @param addedUri
-     *            additional uri, added to baseUri (shall include also extra arguments) (might be null)
-     * @param user
-     *            user to use in authenticated Rest procedure (might be null)
-     * @param pwd
-     *            password to use in authenticated Rest procedure (might be null)
-     * @param uriArgs
-     *            arguments for Uri if any (might be null)
-     * @param json
-     *            json to send as body in the request (might be null); Useful in PUT, POST but should not in GET, DELETE, OPTIONS
+     * @param hmacSha256 SHA-256 key to create the signature
+     * @param channel target of the query
+     * @param method HttpMethod to use
+     * @param host target of the query (shall be the same as for the channel)
+     * @param addedUri additional uri, added to baseUri (shall include also extra arguments) (might be null)
+     * @param user user to use in authenticated Rest procedure (might be null)
+     * @param pwd password to use in authenticated Rest procedure (might be null)
+     * @param uriArgs arguments for Uri if any (might be null)
+     * @param json json to send as body in the request (might be null); Useful in PUT, POST but should not in GET,
+     * DELETE, OPTIONS
+     *
      * @return the RestFuture associated with this request
      */
     public RestFuture sendQuery(HmacSha256 hmacSha256, Channel channel, HttpMethod method, String host,
@@ -308,20 +295,15 @@ public class HttpRestClientHelper {
     /**
      * Send an HTTP query using the channel for target, but without any Signature
      *
-     * @param channel
-     *            target of the query
-     * @param method
-     *            HttpMethod to use
-     * @param host
-     *            target of the query (shall be the same as for the channel)
-     * @param addedUri
-     *            additional uri, added to baseUri (shall include also extra arguments) (might be null)
-     * @param user
-     *            user to use in authenticated Rest procedure (might be null)
-     * @param uriArgs
-     *            arguments for Uri if any (might be null)
-     * @param json
-     *            json to send as body in the request (might be null); Useful in PUT, POST but should not in GET, DELETE, OPTIONS
+     * @param channel target of the query
+     * @param method HttpMethod to use
+     * @param host target of the query (shall be the same as for the channel)
+     * @param addedUri additional uri, added to baseUri (shall include also extra arguments) (might be null)
+     * @param user user to use in authenticated Rest procedure (might be null)
+     * @param uriArgs arguments for Uri if any (might be null)
+     * @param json json to send as body in the request (might be null); Useful in PUT, POST but should not in GET,
+     * DELETE, OPTIONS
+     *
      * @return the RestFuture associated with this request
      */
     public RestFuture sendQuery(Channel channel, HttpMethod method, String host, String addedUri, String user,

@@ -30,7 +30,6 @@ import org.waarp.gateway.kernel.database.DbConstant;
 
 /**
  * @author Frederic Bregier
- *
  */
 public class HttpSession implements SessionInterface {
     protected HttpAuthInterface httpAuth;
@@ -42,6 +41,7 @@ public class HttpSession implements SessionInterface {
     private PageRole currentCommand;
 
     /**
+     *
      */
     public HttpSession() {
     }
@@ -54,16 +54,14 @@ public class HttpSession implements SessionInterface {
     }
 
     /**
-     * @param method
-     *            the method to set
+     * @param method the method to set
      */
     public void setMethod(HttpMethod method) {
         this.method = method;
     }
 
     /**
-     * @param httpAuth
-     *            the httpAuth to set
+     * @param httpAuth the httpAuth to set
      */
     public void setHttpAuth(HttpAuthInterface httpAuth) {
         this.httpAuth = httpAuth;
@@ -115,8 +113,7 @@ public class HttpSession implements SessionInterface {
     }
 
     /**
-     * @param logid
-     *            the logid to set
+     * @param logid the logid to set
      */
     public void setLogid(long logid) {
         this.logid = logid;
@@ -135,8 +132,7 @@ public class HttpSession implements SessionInterface {
     }
 
     /**
-     * @param currentCommand
-     *            the currentCommand to set
+     * @param currentCommand the currentCommand to set
      */
     public void setCurrentCommand(PageRole currentCommand) {
         this.currentCommand = currentCommand;
@@ -150,8 +146,7 @@ public class HttpSession implements SessionInterface {
     }
 
     /**
-     * @param cookieSession
-     *            the cookieSession to set
+     * @param cookieSession the cookieSession to set
      */
     public void setCookieSession(String cookieSession) {
         this.cookieSession = cookieSession;
@@ -165,8 +160,7 @@ public class HttpSession implements SessionInterface {
     }
 
     /**
-     * @param filename
-     *            the filename to set
+     * @param filename the filename to set
      */
     public void setFilename(String filename) {
         this.filename = filename;

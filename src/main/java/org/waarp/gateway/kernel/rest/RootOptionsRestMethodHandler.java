@@ -34,7 +34,6 @@ import org.waarp.gateway.kernel.rest.HttpRestHandler.METHOD;
  * RestMethod handler to implement Root Options handler
  *
  * @author "Frederic Bregier"
- *
  */
 public class RootOptionsRestMethodHandler extends RestMethodHandler {
 

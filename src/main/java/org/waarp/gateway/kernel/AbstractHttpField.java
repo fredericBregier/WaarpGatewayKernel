@@ -21,7 +21,6 @@ import org.waarp.gateway.kernel.exception.HttpIncorrectRequestException;
 
 /**
  * @author Frederic Bregier
- *
  */
 public abstract class AbstractHttpField implements Cloneable {
 
@@ -45,6 +44,7 @@ public abstract class AbstractHttpField implements Cloneable {
     private FieldPosition fieldposition;
     private int fieldrank;
     private boolean present = false;
+
     /**
      * @param fieldname
      * @param fieldtype
@@ -74,17 +74,15 @@ public abstract class AbstractHttpField implements Cloneable {
     }
 
     /**
+     * @param page source HttpPage
      *
-     * @param page
-     *            source HttpPage
      * @return the html form of a field according to its type and value
      */
     public abstract String getHtmlFormField(HttpPage page) throws HttpIncorrectRequestException;
 
     /**
+     * @param page source HttpPage
      *
-     * @param page
-     *            source HttpPage
      * @return the html tab of a field according to its type and value
      */
     public abstract String getHtmlTabField(HttpPage page) throws HttpIncorrectRequestException;
@@ -96,8 +94,8 @@ public abstract class AbstractHttpField implements Cloneable {
      * Set the value
      *
      * @param value
-     * @throws HttpIncorrectRequestException
-     *             if the value was already set
+     *
+     * @throws HttpIncorrectRequestException if the value was already set
      */
     public abstract void setStringValue(String value) throws HttpIncorrectRequestException;
 
@@ -266,8 +264,8 @@ public abstract class AbstractHttpField implements Cloneable {
      * Set the fileUpload
      *
      * @param fileUpload
-     * @throws HttpIncorrectRequestException
-     *             if the value was already set
+     *
+     * @throws HttpIncorrectRequestException if the value was already set
      */
     public abstract void setFileUpload(FileUpload fileUpload) throws HttpIncorrectRequestException;
 

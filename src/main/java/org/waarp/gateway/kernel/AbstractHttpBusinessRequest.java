@@ -20,7 +20,6 @@ import java.util.LinkedHashMap;
 
 /**
  * @author Frederic Bregier
- *
  */
 public abstract class AbstractHttpBusinessRequest {
     protected LinkedHashMap<String, AbstractHttpField> fields;
@@ -39,7 +38,6 @@ public abstract class AbstractHttpBusinessRequest {
     }
 
     /**
-     *
      * @return the LinkedHashMap<String, AbstractHttpField> associated with the current request
      */
     public LinkedHashMap<String, AbstractHttpField> getLinkedHashMapHttpFields() {
@@ -47,44 +45,38 @@ public abstract class AbstractHttpBusinessRequest {
     }
 
     /**
-     *
      * @return the HTML header or null if set through definition
      */
     public abstract String getHeader();
 
     /**
-     *
      * @return the HTML Footer or null if set through definition
      */
     public abstract String getFooter();
 
     /**
-     *
      * @return True if the HTML output will be a Form
      */
     public abstract boolean isForm();
 
     /**
-     *
      * @return the HTML Begin of Form (including URI) or null if set through definition
      */
     public abstract String getBeginForm();
 
     /**
-     *
      * @return the HTML End of Form or null if set through definition
      */
     public abstract String getEndForm();
 
     /**
-     *
      * @param field
+     *
      * @return the HTML field form or null if set standard
      */
     public abstract String getFieldForm(AbstractHttpField field);
 
     /**
-     *
      * @return the HTML Next Field in Form or null if set through definition
      */
     public abstract String getNextFieldInForm();
@@ -93,6 +85,7 @@ public abstract class AbstractHttpBusinessRequest {
      * Called if fieldtovalidate is true
      *
      * @param field
+     *
      * @return True if the field is valid
      */
     public abstract boolean isFieldValid(AbstractHttpField field);
@@ -105,7 +98,6 @@ public abstract class AbstractHttpBusinessRequest {
     public abstract boolean isRequestValid();
 
     /**
-     *
      * @return the string that contains the ContentType in HTML format (as "text/html")
      */
     public abstract String getContentType();
