@@ -19,6 +19,7 @@
  ******************************************************************************/
 package org.waarp.gateway.kernel.http.saplink;
 
+import org.waarp.common.utility.DetectionUtils;
 import org.waarp.gateway.kernel.HttpJsonDefinition;
 import org.waarp.gateway.kernel.HttpPageHandler;
 import org.waarp.gateway.kernel.exception.HttpIncorrectRequestException;
